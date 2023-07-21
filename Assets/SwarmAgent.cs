@@ -13,6 +13,7 @@ public class SwarmAgent : MonoBehaviour
 
     NavMeshAgent _agent;
     ENEMY_STATE _currentState = ENEMY_STATE.IDLE;
+    Animator _animator;
 
     [SerializeField]
     Transform _targetToFollow;
@@ -25,7 +26,8 @@ public class SwarmAgent : MonoBehaviour
 
     void Awake()
     {
-        _agent = GetComponentInChildren<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -43,7 +45,7 @@ public class SwarmAgent : MonoBehaviour
             case ENEMY_STATE.IDLE:
                 if (_currentDistance >= _maxDistance)
                 {
-                    ChaseTarget();
+                    ChaseTarget(_currentDistance);
                 }
                 break;
             case ENEMY_STATE.CHASING:
@@ -53,7 +55,7 @@ public class SwarmAgent : MonoBehaviour
                 }
                 else
                 {
-                    ChaseTarget();
+                    ChaseTarget(_currentDistance);
                 }
                 break;
             default:
@@ -61,14 +63,18 @@ public class SwarmAgent : MonoBehaviour
         }
     }
 
-    void ChaseTarget()
+    void ChaseTarget(float distanceToTarget)
     {
+        var animatorSpeed = distanceToTarget <= 30 && distanceToTarget > 5 ? 5f : 2f;
+        _animator.SetFloat("speed", animatorSpeed);
+
         _agent.SetDestination(_targetToFollow.position);
         _currentState = ENEMY_STATE.CHASING;
     }
 
     void StopChasing()
     {
+        _animator.SetFloat("speed", 0.0f);
         _agent.ResetPath();
         _currentState = ENEMY_STATE.IDLE;
     }
