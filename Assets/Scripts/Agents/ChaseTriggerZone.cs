@@ -5,6 +5,12 @@ using UnityEngine;
 public class ChaseTriggerZone : MonoBehaviour
 {
     [SerializeField] SwarmAgent _agent;
+    [SerializeField] MeshRenderer _mesh;
+
+    void Awake()
+    {
+        _mesh.enabled = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,18 +30,4 @@ public class ChaseTriggerZone : MonoBehaviour
             _agent.HandlePlayerEnterChaseZone(other.transform);
         }
     }
-    
-    /* void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {   
-            var playerComponent = other.gameObject.GetComponentInParent<PlayerController>();
-            if (playerComponent != null)
-            {
-                playerComponent.HandleEnterConversationArea(_characterToSpeak);
-                playerComponent.PlayerTriggeredConversationEvent += _characterToSpeak.HandleConversationTriggered;
-                _characterToSpeak.ConversationEndedEvent += playerComponent.HandleConversationEnd;
-            }
-        }
-    }*/
 }
