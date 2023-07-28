@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5974413354435511013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f216e8be92e56428ba8d04ee14ce460b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e1d562a7dc7d4d4d9794e32544ec742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _targetToFollow: {fileID: 0}
@@ -241,9 +241,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5974413354679206106}
   - component: {fileID: 5974413354679206101}
-  - component: {fileID: 5974413354679206100}
   - component: {fileID: 5974413354679206103}
   - component: {fileID: 5974413354679206102}
+  - component: {fileID: 6455240460249248253}
   m_Layer: 0
   m_Name: ChaseTriggerZone
   m_TagString: Untagged
@@ -278,20 +278,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5974413354679206100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5974413354679206107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f67847930234de998b57dab49eb2c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 5974413354435511015}
-  _mesh: {fileID: 5974413354679206103}
 --- !u!23 &5974413354679206103
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -311,7 +297,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ffae316ab8884fbdab39213dda28eb9, type: 2}
+  - {fileID: 2100000, guid: a38e3e76bc2bc4645b1d0cea14cdc433, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -341,6 +327,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5974413354679206107}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &6455240460249248253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5974413354679206107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3acb840351d44d3b25793ca14e524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 5974413354435511015}
+  _mesh: {fileID: 5974413354679206103}
 --- !u!1 &5974413355277026120
 GameObject:
   m_ObjectHideFlags: 0
