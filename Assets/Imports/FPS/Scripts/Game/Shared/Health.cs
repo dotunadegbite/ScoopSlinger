@@ -28,6 +28,14 @@ namespace Unity.FPS.Game
             CurrentHealth = MaxHealth;
         }
 
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                TakeDamage(20f, null);
+            }
+        }
+
         public void Heal(float healAmount)
         {
             float healthBefore = CurrentHealth;
