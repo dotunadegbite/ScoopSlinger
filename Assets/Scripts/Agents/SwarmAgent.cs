@@ -10,7 +10,8 @@ public class SwarmAgent : MonoBehaviour
     {
         IDLE,
         PATROL,
-        CHASING
+        CHASING,
+        RESTORED
     }
 
     NavMeshAgent _agent;
@@ -21,6 +22,9 @@ public class SwarmAgent : MonoBehaviour
     Transform _currentTarget;
     int _patrolPointIndex;
     List<Transform> _patrolWaypoints;
+    float _currentHealth;
+    bool _isAlive;
+    GameObject _currentModel;
 
 
     [SerializeField] Transform _targetToFollow;
@@ -29,7 +33,12 @@ public class SwarmAgent : MonoBehaviour
     [SerializeField] float _minDistanceFromOrigin = 3.0f;
     [SerializeField] GameObject _patrolPointsParent;
     [SerializeField] Transform _originPoint;
+    [SerializeField] float MaxHealth = 10f;
+    [SerializeField] float Damage = 10f;
     
+    [SerializeField] GameObject _monsterModel;
+    [SerializeField] GameObject _humanModel;
+    [SerializeField] GameObject _smokeEffect;
 
     void Awake()
     {
@@ -41,15 +50,25 @@ public class SwarmAgent : MonoBehaviour
     void Start()
     {
         _patrolWaypoints = _patrolPointsParent.GetComponentsInChildren<Transform>().ToList();
+        _currentHealth = MaxHealth;
+        _isAlive = true;
+
+        _monsterModel.SetActive(true);
+        _currentModel = _monsterModel;
+        _animator = _currentModel.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         float distanceFromOrigin, distanceFromTarget;
+        
+
         switch (_currentState)
         {
             case ENEMY_STATE.IDLE:
+                distanceFromOrigin = DistanceBetweenObjects(_originPoint, this.transform);
+                distanceFromTarget = DistanceBetweenObjects(_currentTarget, this.transform);
                 distanceFromOrigin = DistanceBetweenObjects(_originPoint, this.transform);
                 if (distanceFromOrigin >= _maxDistanceFromOrigin)
                 {
@@ -59,20 +78,17 @@ public class SwarmAgent : MonoBehaviour
                 {
                     BeginPatrol();
                 }
-
                 break;
             case ENEMY_STATE.CHASING:
                 distanceFromOrigin = DistanceBetweenObjects(_originPoint, this.transform);
                 distanceFromTarget = DistanceBetweenObjects(_currentTarget, this.transform);
-                Debug.Log("Origin distance: " + distanceFromOrigin + " Target Distance: " + distanceFromTarget);
                 if (distanceFromOrigin >= _maxDistanceFromOrigin)
                 {
                     ReturnToOrigin();
                 }
                 else if (distanceFromTarget <= _minDistanceFromTarget)
                 {
-                    StopChasing();
-                    // Attack / Stop Chasing
+                    AttackTarget();
                 }
                 else
                 {
@@ -84,6 +100,11 @@ public class SwarmAgent : MonoBehaviour
                 break;
             default:
                 break;
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            TakeDamage(MaxHealth);
         }
     }
 
@@ -100,13 +121,29 @@ public class SwarmAgent : MonoBehaviour
         // 3. Update state to chase
         _currentState = ENEMY_STATE.CHASING;
         _currentTarget = target;
+    }
 
-        Debug.Log("New state: " + _currentState.ToString());
+    public void DamagePlayer()
+    {
+        AttackTarget();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (!_isAlive)
+            return;
+        
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            _isAlive = false;
+            StartCoroutine(TriggerDeath());
+        }
     }
 
     void ChaseTarget()
     {
-        // var animatorSpeed = distanceToTarget <= 30 && distanceToTarget > 5 ? 5f : 2f;
         _animator.SetFloat("speed", 5f);
 
         _agent.SetDestination(_currentTarget.position);
@@ -118,6 +155,13 @@ public class SwarmAgent : MonoBehaviour
         _animator.SetFloat("speed", 0.0f);
         _agent.ResetPath();
         _currentState = ENEMY_STATE.IDLE;
+    }
+
+    void AttackTarget()
+    {
+        _animator.SetFloat("speed", 0.0f);
+        _agent.ResetPath();
+        _currentState = ENEMY_STATE.CHASING;
     }
 
     float DistanceBetweenObjects (Transform a, Transform b)
@@ -182,5 +226,23 @@ public class SwarmAgent : MonoBehaviour
         
         _animator.SetFloat("speed", 2f);
         _agent.SetDestination(_originPoint.position);
+    }
+
+    private IEnumerator TriggerDeath()
+    {
+        _animator.SetFloat("speed", 0.0f);
+        _agent.ResetPath();
+        _currentState = ENEMY_STATE.RESTORED;
+
+        _humanModel.SetActive(true);
+        _currentModel = _humanModel;
+        _animator = _currentModel.GetComponent<Animator>();
+
+        _monsterModel.SetActive(false);
+        _smokeEffect.SetActive(true);
+        _animator.SetTrigger("dance");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+
+        Destroy(this.transform.parent.gameObject);
     }
 }
