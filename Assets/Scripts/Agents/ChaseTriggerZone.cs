@@ -27,6 +27,7 @@ public class ChaseTriggerZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player entered chase zone");
             _agent.HandlePlayerEnterChaseZone(other.transform);
         }
     }

@@ -102,7 +102,7 @@ public class SwarmAgent : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.Q))
         {
             TakeDamage(MaxHealth);
         }
@@ -126,6 +126,20 @@ public class SwarmAgent : MonoBehaviour
     public void DamagePlayer()
     {
         AttackTarget();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (!_isAlive)
+            return;
+        
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            _isAlive = false;
+            StartCoroutine(TriggerDeath());
+        }
     }
 
     void ChaseTarget()
@@ -212,20 +226,6 @@ public class SwarmAgent : MonoBehaviour
         
         _animator.SetFloat("speed", 2f);
         _agent.SetDestination(_originPoint.position);
-    }
-
-    private void TakeDamage(float damage)
-    {
-        if (!_isAlive)
-            return;
-        
-        _currentHealth -= damage;
-
-        if (_currentHealth <= 0)
-        {
-            _isAlive = false;
-            StartCoroutine(TriggerDeath());
-        }
     }
 
     private IEnumerator TriggerDeath()
