@@ -24,6 +24,7 @@ public class SwarmAgent : MonoBehaviour
     List<Transform> _patrolWaypoints;
     float _currentHealth;
     bool _isAlive;
+    GameObject _currentModel;
 
 
     [SerializeField] Transform _targetToFollow;
@@ -32,10 +33,11 @@ public class SwarmAgent : MonoBehaviour
     [SerializeField] float _minDistanceFromOrigin = 3.0f;
     [SerializeField] GameObject _patrolPointsParent;
     [SerializeField] Transform _originPoint;
-    [SerializeField] float _maxHealth = 10f;
+    [SerializeField] float MaxHealth = 10f;
+    [SerializeField] float Damage = 10f;
     
-    [SerializeField] GameObject _preTransformationModel;
-    [SerializeField] GameObject _postTransformationModel;
+    [SerializeField] GameObject _monsterModel;
+    [SerializeField] GameObject _humanModel;
 
     void Awake()
     {
@@ -47,11 +49,12 @@ public class SwarmAgent : MonoBehaviour
     void Start()
     {
         _patrolWaypoints = _patrolPointsParent.GetComponentsInChildren<Transform>().ToList();
-        _currentHealth = _maxHealth;
+        _currentHealth = MaxHealth;
         _isAlive = true;
 
-        _preTransformationModel.SetActive(true);
-        _animator = _preTransformationModel.GetComponent<Animator>();
+        _monsterModel.SetActive(true);
+        _currentModel = _monsterModel;
+        _animator = _currentModel.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -105,7 +108,7 @@ public class SwarmAgent : MonoBehaviour
 
         if (Input.GetKey(KeyCode.E))
         {
-            TakeDamage(10f);
+            TakeDamage(MaxHealth);
         }
     }
 
@@ -124,9 +127,14 @@ public class SwarmAgent : MonoBehaviour
         _currentTarget = target;
     }
 
+    public void DamagePlayer()
+    {
+        AttackTarget();
+    }
+
     void ChaseTarget()
     {
-        //_animator.SetFloat("speed", 5f);
+        _animator.SetFloat("speed", 5f);
 
         _agent.SetDestination(_currentTarget.position);
         _currentState = ENEMY_STATE.CHASING;
@@ -134,18 +142,16 @@ public class SwarmAgent : MonoBehaviour
 
     void StopChasing()
     {
-        // _animator.SetFloat("speed", 0.0f);
+        _animator.SetFloat("speed", 0.0f);
         _agent.ResetPath();
         _currentState = ENEMY_STATE.IDLE;
     }
 
     void AttackTarget()
     {
-        // _animator.SetFloat("speed", 0.0f);
+        _animator.SetFloat("speed", 0.0f);
         _agent.ResetPath();
         _currentState = ENEMY_STATE.CHASING;
-
-        // _animator.SetTrigger("attack");
     }
 
     float DistanceBetweenObjects (Transform a, Transform b)
@@ -165,7 +171,7 @@ public class SwarmAgent : MonoBehaviour
 
     void BeginPatrol()
     {
-        // _animator.SetFloat("speed", 2f);
+        _animator.SetFloat("speed", 2f);
         _patrolPointIndex = 0;
         UpdateDestination(/* isPatrolling */ true);
         _currentState = ENEMY_STATE.PATROL;
@@ -208,7 +214,7 @@ public class SwarmAgent : MonoBehaviour
         if (_currentState != ENEMY_STATE.IDLE)
             _currentState = ENEMY_STATE.IDLE;
         
-        // _animator.SetFloat("speed", 2f);
+        _animator.SetFloat("speed", 2f);
         _agent.SetDestination(_originPoint.position);
     }
 
@@ -222,20 +228,24 @@ public class SwarmAgent : MonoBehaviour
         if (_currentHealth <= 0)
         {
             _isAlive = false;
-            TriggerDeath();
+            StartCoroutine(TriggerDeath());
         }
     }
 
-    private void TriggerDeath()
+    private IEnumerator TriggerDeath()
     {
-        // _animator.SetFloat("speed", 0.0f);
+        _animator.SetFloat("speed", 0.0f);
         _agent.ResetPath();
         _currentState = ENEMY_STATE.RESTORED;
 
-        _postTransformationModel.SetActive(true);
-        _animator = _postTransformationModel.GetComponent<Animator>();
+        _humanModel.SetActive(true);
+        _currentModel = _humanModel;
+        _animator = _currentModel.GetComponent<Animator>();
 
+        _monsterModel.SetActive(false);
+        _animator.SetTrigger("dance");
+        yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
-        _preTransformationModel.SetActive(false);
+        Destroy(this.transform.parent.gameObject);
     }
 }
