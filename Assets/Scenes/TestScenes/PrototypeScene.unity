@@ -602,8 +602,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5974413354435511015, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
         type: 3}
+      propertyPath: _smokeEffect
+      value: 
+      objectReference: {fileID: 1782717289}
+    - target: {fileID: 5974413354435511015, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
+        type: 3}
       propertyPath: _minDistanceFromTarget
       value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8531142569935178250, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1, type: 3}
@@ -797,6 +807,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1782717289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8419623930884275772, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1184254761}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1784271285
 GameObject:
   m_ObjectHideFlags: 0

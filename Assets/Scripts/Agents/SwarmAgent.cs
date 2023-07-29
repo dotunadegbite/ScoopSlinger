@@ -38,6 +38,7 @@ public class SwarmAgent : MonoBehaviour
     
     [SerializeField] GameObject _monsterModel;
     [SerializeField] GameObject _humanModel;
+    [SerializeField] GameObject _smokeEffect;
 
     void Awake()
     {
@@ -68,7 +69,6 @@ public class SwarmAgent : MonoBehaviour
             case ENEMY_STATE.IDLE:
                 distanceFromOrigin = DistanceBetweenObjects(_originPoint, this.transform);
                 distanceFromTarget = DistanceBetweenObjects(_currentTarget, this.transform);
-                Debug.Log("Origin distance: " + distanceFromOrigin + " Target Distance: " + distanceFromTarget);
                 distanceFromOrigin = DistanceBetweenObjects(_originPoint, this.transform);
                 if (distanceFromOrigin >= _maxDistanceFromOrigin)
                 {
@@ -88,8 +88,6 @@ public class SwarmAgent : MonoBehaviour
                 }
                 else if (distanceFromTarget <= _minDistanceFromTarget)
                 {
-                    // StopChasing();
-                    // Attack / Stop Chasing
                     AttackTarget();
                 }
                 else
@@ -99,8 +97,6 @@ public class SwarmAgent : MonoBehaviour
                 break;
             case ENEMY_STATE.PATROL:
                 PatrolArea();
-                break;
-            case ENEMY_STATE.RESTORED:
                 break;
             default:
                 break;
@@ -243,6 +239,7 @@ public class SwarmAgent : MonoBehaviour
         _animator = _currentModel.GetComponent<Animator>();
 
         _monsterModel.SetActive(false);
+        _smokeEffect.SetActive(true);
         _animator.SetTrigger("dance");
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
