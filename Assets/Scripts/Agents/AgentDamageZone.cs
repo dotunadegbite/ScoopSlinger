@@ -31,28 +31,8 @@ public class AgentDamageZone : MonoBehaviour
 
         if (other.CompareTag("IceCreamScoop"))
         {
-            Debug.Log("Enemy Hit 2"); // successfully hits this
             _agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
         }
     }
 
-    //private void OnCollisionEnter(Collision other)
-    //{
-    //    //if (other.CompareTag("Player"))
-    //    //{
-    //    //    var otherDamage = other.gameObject.GetComponent<Damageable>();
-    //    //    _agent.DamagePlayer();
-
-    //    //    otherDamage.InflictDamage(10, false, _agent.gameObject);
-    //    //}
-
-    //    if (other.gameObject.layer("IceCreamScoop"))
-    //    {
-    //        Debug.Log("Enemy Hit 2");
-    //        var EnemyDamage = gameObject.GetComponent<Damageable>();
-    //        //gameObject.GetComponent<Damageable>().InflictDamage(10.0f, false, _agent.gameObject);
-
-    //        EnemyDamage.InflictDamage(15, false, _agent.gameObject);
-    //    }
-    //}
 }

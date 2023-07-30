@@ -217,7 +217,6 @@ namespace Unity.FPS.Gameplay
             ////this makes it impossible to collide with the enemy
             //if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
             //{
-            //    Debug.Log("Hi9");
             //    return false;
             //}
         

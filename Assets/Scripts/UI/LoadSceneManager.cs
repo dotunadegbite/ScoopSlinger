@@ -24,6 +24,7 @@ public class LoadSceneManager : MonoBehaviour
         SceneManager.LoadScene(SceneName);
     }
 
+    //Added for a quick way to transition scenes on win
     public void MoveToScene(string SceneName)
     {
         SceneManager.LoadScene(SceneName);

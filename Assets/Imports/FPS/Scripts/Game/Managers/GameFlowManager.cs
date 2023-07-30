@@ -67,7 +67,6 @@ namespace Unity.FPS.Game
 
         void EndGame(bool win)
         {
-            Debug.Log("test");
             // unlocks the cursor before leaving the scene, to be able to click buttons
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
