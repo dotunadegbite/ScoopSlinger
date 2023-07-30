@@ -6,6 +6,10 @@ TagManager:
   tags:
   - PatrolPoint
   - Enemy
+  - FxTemporaire
+  - IceCreamScoop
+  - ChaseZone
+  - WinManager
   layers:
   - Default
   - TransparentFX
