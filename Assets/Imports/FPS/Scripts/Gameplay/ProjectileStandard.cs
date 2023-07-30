@@ -79,6 +79,7 @@ namespace Unity.FPS.Gameplay
 
         new void OnShoot()
         {
+            Debug.Log("Hi");
             m_ShootTime = Time.time;
             m_LastRootPosition = Root.position;
             m_Velocity = transform.forward * Speed;
@@ -163,6 +164,7 @@ namespace Unity.FPS.Gameplay
 
             // Hit detection
             {
+                Debug.Log("Hi2");
                 RaycastHit closestHit = new RaycastHit();
                 closestHit.distance = Mathf.Infinity;
                 bool foundHit = false;
@@ -174,8 +176,10 @@ namespace Unity.FPS.Gameplay
                     k_TriggerInteraction);
                 foreach (var hit in hits)
                 {
+                    Debug.Log("Hi3");
                     if (IsHitValid(hit) && hit.distance < closestHit.distance)
                     {
+                        Debug.Log("Hi4");
                         foundHit = true;
                         closestHit = hit;
                     }
@@ -183,9 +187,11 @@ namespace Unity.FPS.Gameplay
 
                 if (foundHit)
                 {
+                    Debug.Log("Hi5");
                     // Handle case of casting while already inside a collider
                     if (closestHit.distance <= 0f)
                     {
+                        Debug.Log("Hi6");
                         closestHit.point = Root.position;
                         closestHit.normal = -transform.forward;
                     }
@@ -199,21 +205,37 @@ namespace Unity.FPS.Gameplay
 
         bool IsHitValid(RaycastHit hit)
         {
+
+            Debug.Log(hit.collider.gameObject.tag);
+            //Debug.Log("Hi7");
             // ignore hits with an ignore component
             if (hit.collider.GetComponent<IgnoreHitDetection>())
             {
+                Debug.Log("Hi8");
                 return false;
             }
 
-            // ignore hits with triggers that don't have a Damageable component
-            if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
+            //reject hit on the chaze zone collider
+            if (hit.collider.gameObject.tag == "ChaseZone")
             {
+                Debug.Log("Hi30");
+
                 return false;
             }
 
+
+            //// ignore hits with triggers that don't have a Damageable component
+            ////this makes it impossible to collide with the enemy
+            //if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
+            //{
+            //    Debug.Log("Hi9");
+            //    return false;
+            //}
+        
             // ignore hits with specific ignored colliders (self colliders, by default)
             if (m_IgnoredColliders != null && m_IgnoredColliders.Contains(hit.collider))
             {
+                Debug.Log("Hi10");
                 return false;
             }
 
@@ -222,15 +244,18 @@ namespace Unity.FPS.Gameplay
 
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
+            
             // damage
             if (AreaOfDamage)
             {
+                Debug.Log("Hi11");
                 // area damage
                 AreaOfDamage.InflictDamageInArea(Damage, point, HittableLayers, k_TriggerInteraction,
                     m_ProjectileBase.Owner);
             }
             else
             {
+                Debug.Log("Hi12");
                 // point damage
                 Damageable damageable = collider.GetComponent<Damageable>();
                 if (damageable)
@@ -242,10 +267,12 @@ namespace Unity.FPS.Gameplay
             // impact vfx
             if (ImpactVfx)
             {
+                Debug.Log("Hi13");
                 GameObject impactVfxInstance = Instantiate(ImpactVfx, point + (normal * ImpactVfxSpawnOffset),
                     Quaternion.LookRotation(normal));
                 if (ImpactVfxLifetime > 0)
                 {
+                    Debug.Log("Hi14");
                     Destroy(impactVfxInstance.gameObject, ImpactVfxLifetime);
                 }
             }
