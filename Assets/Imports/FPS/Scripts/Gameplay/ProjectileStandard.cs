@@ -199,18 +199,27 @@ namespace Unity.FPS.Gameplay
 
         bool IsHitValid(RaycastHit hit)
         {
+
             // ignore hits with an ignore component
             if (hit.collider.GetComponent<IgnoreHitDetection>())
             {
                 return false;
             }
 
-            // ignore hits with triggers that don't have a Damageable component
-            if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
+            //reject hit on the chaze zone collider
+            if (hit.collider.gameObject.tag == "ChaseZone")
             {
                 return false;
             }
 
+
+            //// ignore hits with triggers that don't have a Damageable component
+            ////this makes it impossible to collide with the enemy
+            //if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
+            //{
+            //    return false;
+            //}
+        
             // ignore hits with specific ignored colliders (self colliders, by default)
             if (m_IgnoredColliders != null && m_IgnoredColliders.Contains(hit.collider))
             {
@@ -222,6 +231,7 @@ namespace Unity.FPS.Gameplay
 
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
+            
             // damage
             if (AreaOfDamage)
             {

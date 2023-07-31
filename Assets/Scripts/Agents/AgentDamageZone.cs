@@ -10,16 +10,16 @@ public class AgentDamageZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -28,5 +28,11 @@ public class AgentDamageZone : MonoBehaviour
 
             otherDamage.InflictDamage(10, false, _agent.gameObject);
         }
+
+        if (other.CompareTag("IceCreamScoop"))
+        {
+            _agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
+        }
     }
+
 }
