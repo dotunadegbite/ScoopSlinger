@@ -21,17 +21,20 @@ public class AgentDamageZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (_agent.IsAlive())
         {
-            var otherDamage = other.gameObject.GetComponent<Damageable>();
-            _agent.DamagePlayer();
+            if (other.CompareTag("Player"))
+            {
+                var otherDamage = other.gameObject.GetComponent<Damageable>();
+                _agent.DamagePlayer();
 
-            otherDamage.InflictDamage(10, false, _agent.gameObject);
-        }
+                otherDamage.InflictDamage(10, false, _agent.gameObject);
+            }
 
-        if (other.CompareTag("IceCreamScoop"))
-        {
-            _agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
+            if (other.CompareTag("IceCreamScoop"))
+            {
+                _agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
+            }
         }
     }
 

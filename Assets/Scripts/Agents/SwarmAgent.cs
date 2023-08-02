@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Play.Publisher.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -39,6 +40,7 @@ public class SwarmAgent : MonoBehaviour
     [SerializeField] GameObject _monsterModel;
     [SerializeField] GameObject _humanModel;
     [SerializeField] GameObject _smokeEffect;
+
 
     void Awake()
     {
@@ -121,6 +123,8 @@ public class SwarmAgent : MonoBehaviour
         // 3. Update state to chase
         _currentState = ENEMY_STATE.CHASING;
         _currentTarget = target;
+
+        ChaseTarget();
     }
 
     public void DamagePlayer()
@@ -141,6 +145,8 @@ public class SwarmAgent : MonoBehaviour
             StartCoroutine(TriggerDeath());
         }
     }
+
+    public bool IsAlive() { return _isAlive; }
 
     void ChaseTarget()
     {
@@ -244,5 +250,15 @@ public class SwarmAgent : MonoBehaviour
         yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
         Destroy(this.transform.parent.gameObject);
+    }
+
+    private void RemoveMonsterModel()
+    {
+
+    }
+
+    private void SpawnHumanModel()
+    {
+
     }
 }
