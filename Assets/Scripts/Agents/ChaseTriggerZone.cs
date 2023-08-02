@@ -25,10 +25,13 @@ public class ChaseTriggerZone : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Player"))
+        if (_agent.IsAlive())
         {
-            Debug.Log("Player entered chase zone");
-            _agent.HandlePlayerEnterChaseZone(other.transform);
+            if (other.CompareTag("Player"))
+            {
+                Debug.Log("Player entered chase zone");
+                _agent.HandlePlayerEnterChaseZone(other.transform);
+            }
         }
     }
 }
