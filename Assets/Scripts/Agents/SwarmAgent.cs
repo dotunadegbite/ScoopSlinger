@@ -251,14 +251,4 @@ public class SwarmAgent : MonoBehaviour
 
         Destroy(this.transform.parent.gameObject);
     }
-
-    private void RemoveMonsterModel()
-    {
-
-    }
-
-    private void SpawnHumanModel()
-    {
-
-    }
 }
