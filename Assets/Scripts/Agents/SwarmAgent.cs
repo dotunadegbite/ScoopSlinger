@@ -101,11 +101,6 @@ public class SwarmAgent : MonoBehaviour
             default:
                 break;
         }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            TakeDamage(MaxHealth);
-        }
     }
 
     public void HandlePlayerEnterChaseZone(Transform target)
