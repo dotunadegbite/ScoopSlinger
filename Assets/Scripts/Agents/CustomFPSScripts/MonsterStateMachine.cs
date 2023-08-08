@@ -16,6 +16,7 @@ public class MonsterStateMachine : MonoBehaviour
         [Tooltip("Fraction of the enemy's attack range at which it will stop moving towards target while attacking")]
         [Range(0f, 1f)]
         public float AttackStopDistanceRatio = 0.5f;
+        public float MinDistanceForAttack = 5.0f;
 
         [Tooltip("The random hit damage effects")]
         public ParticleSystem[] RandomHitSparks;
@@ -29,7 +30,6 @@ public class MonsterStateMachine : MonoBehaviour
         public AIState AiState { get; private set; }
         MonsterController m_MonsterController;
         AudioSource m_AudioSource;
-        bool canAttack = false;
 
         const string k_AnimMoveSpeedParameter = "MoveSpeed";
         const string k_AnimAttackParameter = "Attack";
@@ -74,22 +74,18 @@ public class MonsterStateMachine : MonoBehaviour
                 animatorSpeed = 3.0f;
                 m_MonsterController.NavMeshAgent.speed = 3.0f;
             }
-            else if (!canAttack && (AiState == AIState.Follow || AiState == AIState.Attack))
+            else if (!m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
                 animatorSpeed = 10.0f;
                 m_MonsterController.NavMeshAgent.speed = 10.0f;
             }
-            else if (canAttack && (AiState == AIState.Follow || AiState == AIState.Attack))
+            else if (m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
                 animatorSpeed = 0.0f;
                 m_MonsterController.NavMeshAgent.speed = 0.0f;
             }
 
             Animator.SetFloat(k_AnimMoveSpeedParameter, animatorSpeed);
-
-            // changing the pitch of the movement sound depending on the movement speed
-            m_AudioSource.pitch = Mathf.Lerp(PitchDistortionMovementSpeed.Min, PitchDistortionMovementSpeed.Max,
-                moveSpeed / m_MonsterController.NavMeshAgent.speed);
         }
 
         void UpdateAiStateTransitions()
@@ -99,7 +95,7 @@ public class MonsterStateMachine : MonoBehaviour
             {
                 case AIState.Follow:
                     // Transition to attack when there is a line of sight to the target
-                    if (m_MonsterController.IsSeeingTarget && m_MonsterController.IsTargetInAttackRange)
+                    if (m_MonsterController.HasSeenPlayer && m_MonsterController.IsTargetInAttackRange)
                     {
                         AiState = AIState.Attack;
                         m_MonsterController.SetNavDestination(transform.position);
@@ -131,22 +127,20 @@ public class MonsterStateMachine : MonoBehaviour
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
                     break;
                 case AIState.Attack:
-                    canAttack = false;
                     if (Vector3.Distance(m_MonsterController.KnownDetectedTarget.transform.position,
-                            m_MonsterController.DetectionModule.DetectionSourcePoint.position)
-                        >= (AttackStopDistanceRatio * m_MonsterController.DetectionModule.AttackRange))
+                            m_MonsterController.ChaseTriggerModule.DetectionSourcePoint.position)
+                        >= MinDistanceForAttack)
                     {
                         m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position);
                     }
                     else
                     {
-                        canAttack = true;
                         m_MonsterController.SetNavDestination(transform.position);
                     }
 
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
 
-                    if (canAttack)
+                    if (m_MonsterController.IsTargetInAttackRange)
                     {
                         m_MonsterController.TryAttack(m_MonsterController.KnownDetectedTarget.transform.position);
                     }

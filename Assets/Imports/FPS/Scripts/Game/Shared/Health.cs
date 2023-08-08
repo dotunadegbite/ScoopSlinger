@@ -27,10 +27,6 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(20f, null);
-        }
     }
 
     public void Heal(float healAmount)

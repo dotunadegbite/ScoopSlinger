@@ -48,14 +48,22 @@ public class MonsterController : MonoBehaviour
     float m_LastTimeDamaged = float.NegativeInfinity;
 
     public MonsterPath PatrolPath { get; set; }
-    public GameObject KnownDetectedTarget => DetectionModule.KnownDetectedTarget;
+    /* public GameObject KnownDetectedTarget => DetectionModule.KnownDetectedTarget;
     public bool IsTargetInAttackRange => DetectionModule.IsTargetInAttackRange;
-    public bool IsSeeingTarget => DetectionModule.IsSeeingTarget;
-    public bool HadKnownTarget => DetectionModule.HadKnownTarget;
+    public bool IsSeeingTarget => DetectionModule.IsSeeingTarget;*/
 
-    public bool CanAttack { get; private set;}
+
+    [SerializeField]public GameObject KnownDetectedTarget => ChaseTriggerModule.KnownDetectedTarget;
+    public bool IsTargetInAttackRange => ChaseTriggerModule.IsTargetInAttackRange;
+    public bool HasSeenPlayer => ChaseTriggerModule.HasSeenPlayer;
+
     public NavMeshAgent NavMeshAgent { get; private set; }
-    public MonsterDetection DetectionModule { get; private set; }
+    [SerializeField] private ChaseTriggerZone _chaseTriggerModule;
+
+    public ChaseTriggerZone ChaseTriggerModule
+    {
+        get =>  _chaseTriggerModule;
+    }
 
     int m_PathDestinationNodeIndex;
     MonsterManager m_MonsterManager;
@@ -64,6 +72,7 @@ public class MonsterController : MonoBehaviour
     Actor m_Actor;
     Collider[] m_SelfColliders;
     GameFlowManager m_GameFlowManager;
+    MonsterHitBox m_MonsterHitBox;
 
     void Start()
     {
@@ -87,37 +96,19 @@ public class MonsterController : MonoBehaviour
         m_GameFlowManager = FindObjectOfType<GameFlowManager>();
         DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, MonsterController>(m_GameFlowManager, this);
 
+        m_MonsterHitBox = GetComponentInChildren<MonsterHitBox>();
+
         // Subscribe to damage & death actions
         m_Health.OnDie += OnDie;
         m_Health.OnDamaged += OnDamaged;
 
-        var detectionModules = GetComponentsInChildren<MonsterDetection>();
-        DebugUtility.HandleErrorIfNoComponentFound<MonsterDetection, MonsterController>(detectionModules.Length, this,
-            gameObject);
-        DebugUtility.HandleWarningIfDuplicateObjects<MonsterDetection, MonsterController>(detectionModules.Length,
-            this, gameObject);
-
-        // Initialize detection module
-        DetectionModule = detectionModules[0];
-        DetectionModule.onDetectedTarget += OnDetectedTarget;
-        DetectionModule.onLostTarget += OnLostTarget;
-        onAttack += DetectionModule.OnAttack;
+        ChaseTriggerModule.onDetectedTarget += OnDetectedTarget;
+        onAttack += ChaseTriggerModule.OnAttack;
     }
 
     void Update()
     {
         EnsureIsWithinLevelBounds();
-
-        DetectionModule.HandleTargetDetection(m_Actor, m_SelfColliders);
-
-        /* Color currentColor = OnHitBodyGradient.Evaluate((Time.time - m_LastTimeDamaged) / FlashOnHitDuration);
-        m_BodyFlashMaterialPropertyBlock.SetColor("_EmissionColor", currentColor);
-        foreach (var data in m_BodyRenderers)
-        {
-            data.Renderer.SetPropertyBlock(m_BodyFlashMaterialPropertyBlock, data.MaterialIndex);
-        }*/
-
-        // m_WasDamagedThisFrame = false;
     }
 
     void EnsureIsWithinLevelBounds()
@@ -133,27 +124,11 @@ public class MonsterController : MonoBehaviour
     void OnLostTarget()
     {
         onLostTarget.Invoke();
-
-        /* Set the eye attack color and property block if the eye renderer is set
-        if (m_EyeRendererData.Renderer != null)
-        {
-            m_EyeColorMaterialPropertyBlock.SetColor("_EmissionColor", DefaultEyeColor);
-            m_EyeRendererData.Renderer.SetPropertyBlock(m_EyeColorMaterialPropertyBlock,
-                m_EyeRendererData.MaterialIndex);
-        }*/
     }
 
     void OnDetectedTarget()
     {
         onDetectedTarget.Invoke();
-
-        /* Set the eye default color and property block if the eye renderer is set
-        if (m_EyeRendererData.Renderer != null)
-        {
-            m_EyeColorMaterialPropertyBlock.SetColor("_EmissionColor", AttackEyeColor);
-            m_EyeRendererData.Renderer.SetPropertyBlock(m_EyeColorMaterialPropertyBlock,
-                m_EyeRendererData.MaterialIndex);
-        } */
     }
 
     public void OrientTowards(Vector3 lookPosition)
@@ -247,8 +222,7 @@ public class MonsterController : MonoBehaviour
         // test if the damage source is the player
         if (damageSource && !damageSource.GetComponent<MonsterController>())
         {
-            // pursue the player
-            DetectionModule.OnDamaged(damageSource);
+            ChaseTriggerModule.OnDamaged(damageSource);
             
             onDamaged?.Invoke();
             m_LastTimeDamaged = Time.time;
@@ -277,17 +251,6 @@ public class MonsterController : MonoBehaviour
         // Path reaching range
         Gizmos.color = PathReachingRangeColor;
         Gizmos.DrawWireSphere(transform.position, PathReachingRadius);
-
-        if (DetectionModule != null)
-        {
-            // Detection range
-            Gizmos.color = DetectionRangeColor;
-            Gizmos.DrawWireSphere(transform.position, DetectionModule.DetectionRange);
-
-            // Attack range
-            Gizmos.color = AttackRangeColor;
-            Gizmos.DrawWireSphere(transform.position, DetectionModule.AttackRange);
-        }
     }
 
     public bool TryAttack(Vector3 enemyPosition)
@@ -295,31 +258,6 @@ public class MonsterController : MonoBehaviour
         if (m_GameFlowManager.GameIsEnding)
             return false;
 
-        /* OrientWeaponsTowards(enemyPosition);
-
-        if ((m_LastTimeWeaponSwapped + DelayAfterWeaponSwap) >= Time.time)
-            return false;
-
-        // Shoot the weapon
-        bool didFire = GetCurrentWeapon().HandleShootInputs(false, true, false);
-
-        if (didFire && onAttack != null)
-        {
-            onAttack.Invoke();
-
-            if (SwapToNextWeapon && m_Weapons.Length > 1)
-            {
-                int nextWeaponIndex = (m_CurrentWeaponIndex + 1) % m_Weapons.Length;
-                SetCurrentWeapon(nextWeaponIndex);
-            }
-        }
-
-        return didFire;
-        */
-
-        Debug.Log("Attack");
-
-        // Check if the enemy is within range of the player
         onAttack.Invoke();
         return true;
     }

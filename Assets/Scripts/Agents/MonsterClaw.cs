@@ -31,7 +31,6 @@ public class MonsterClaw : MonoBehaviour
             _isAttacking = true;
             var otherDamage = other.gameObject.GetComponent<Damageable>();
             otherDamage.InflictDamage(10, false, _monster.gameObject);
-            Debug.Log("Attack has landed");
         }
     }
 
