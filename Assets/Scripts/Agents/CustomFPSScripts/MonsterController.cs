@@ -52,6 +52,8 @@ public class MonsterController : MonoBehaviour
     public bool IsTargetInAttackRange => DetectionModule.IsTargetInAttackRange;
     public bool IsSeeingTarget => DetectionModule.IsSeeingTarget;
     public bool HadKnownTarget => DetectionModule.HadKnownTarget;
+
+    public bool CanAttack { get; private set;}
     public NavMeshAgent NavMeshAgent { get; private set; }
     public MonsterDetection DetectionModule { get; private set; }
 
@@ -316,6 +318,8 @@ public class MonsterController : MonoBehaviour
         */
 
         Debug.Log("Attack");
+
+        // Check if the enemy is within range of the player
         onAttack.Invoke();
         return true;
     }

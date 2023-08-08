@@ -29,11 +29,16 @@ public class MonsterStateMachine : MonoBehaviour
         public AIState AiState { get; private set; }
         MonsterController m_MonsterController;
         AudioSource m_AudioSource;
+        bool canAttack = false;
 
         const string k_AnimMoveSpeedParameter = "MoveSpeed";
         const string k_AnimAttackParameter = "Attack";
         const string k_AnimAlertedParameter = "Alerted";
         const string k_AnimOnDamagedParameter = "OnDamaged";
+        const string k_AnimChasingParameter = "IsChasing";
+
+        const float k_WalkingSpeed = 3.0f;
+        const float k_RunningSpeed = 10.0f;
 
         void Start()
         {
@@ -63,9 +68,24 @@ public class MonsterStateMachine : MonoBehaviour
             UpdateCurrentAiState();
 
             float moveSpeed = m_MonsterController.NavMeshAgent.velocity.magnitude;
+            float animatorSpeed = moveSpeed;
+            if (AiState == AIState.Patrol)
+            {
+                animatorSpeed = 3.0f;
+                m_MonsterController.NavMeshAgent.speed = 3.0f;
+            }
+            else if (!canAttack && (AiState == AIState.Follow || AiState == AIState.Attack))
+            {
+                animatorSpeed = 10.0f;
+                m_MonsterController.NavMeshAgent.speed = 10.0f;
+            }
+            else if (canAttack && (AiState == AIState.Follow || AiState == AIState.Attack))
+            {
+                animatorSpeed = 0.0f;
+                m_MonsterController.NavMeshAgent.speed = 0.0f;
+            }
 
-            // Update animator speed parameter
-            Animator.SetFloat(k_AnimMoveSpeedParameter, moveSpeed);
+            Animator.SetFloat(k_AnimMoveSpeedParameter, animatorSpeed);
 
             // changing the pitch of the movement sound depending on the movement speed
             m_AudioSource.pitch = Mathf.Lerp(PitchDistortionMovementSpeed.Min, PitchDistortionMovementSpeed.Max,
@@ -111,7 +131,7 @@ public class MonsterStateMachine : MonoBehaviour
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
                     break;
                 case AIState.Attack:
-                    var canAttack = false;
+                    canAttack = false;
                     if (Vector3.Distance(m_MonsterController.KnownDetectedTarget.transform.position,
                             m_MonsterController.DetectionModule.DetectionSourcePoint.position)
                         >= (AttackStopDistanceRatio * m_MonsterController.DetectionModule.AttackRange))
@@ -181,8 +201,8 @@ public class MonsterStateMachine : MonoBehaviour
             {
                 int n = Random.Range(0, RandomHitSparks.Length - 1);
                 RandomHitSparks[n].Play();
-            }
+            }*/
 
-            Animator.SetTrigger(k_AnimOnDamagedParameter);*/
+            Animator.SetTrigger(k_AnimOnDamagedParameter);
         }
 }
