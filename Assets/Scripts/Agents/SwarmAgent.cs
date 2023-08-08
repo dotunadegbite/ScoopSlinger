@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Play.Publisher.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -119,8 +120,9 @@ public class SwarmAgent : MonoBehaviour
 
         // 3. Update state to chase
         _currentState = ENEMY_STATE.CHASING;
-        _currentTarget = aimPointObject;
-        Debug.Log("Current target: " + _currentTarget.position.ToString());
+        _currentTarget = target;
+
+        ChaseTarget();
     }
 
     public void DamagePlayer()
@@ -141,6 +143,8 @@ public class SwarmAgent : MonoBehaviour
             StartCoroutine(TriggerDeath());
         }
     }
+
+    public bool IsAlive() { return _isAlive; }
 
     void ChaseTarget()
     {
