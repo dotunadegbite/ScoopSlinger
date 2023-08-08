@@ -15,19 +15,16 @@ public class SwarmAgent : MonoBehaviour
     }
 
     NavMeshAgent _agent;
-    ENEMY_STATE _currentState = ENEMY_STATE.PATROL;
+    [SerializeField]ENEMY_STATE _currentState = ENEMY_STATE.PATROL;
     Animator _animator;
     float _currentDistance;
-    Transform _currentPatrolPoint;
-    Transform _currentTarget;
-    int _patrolPointIndex;
+    [SerializeField] Transform _currentPatrolPoint;
+    [SerializeField] Transform _currentTarget;
+    [SerializeField] int _patrolPointIndex;
     List<Transform> _patrolWaypoints;
     float _currentHealth;
     bool _isAlive;
     GameObject _currentModel;
-
-
-    [SerializeField] Transform _targetToFollow;
     [SerializeField] float _maxDistanceFromOrigin = 30.0f;
     [SerializeField] float _minDistanceFromTarget = 3.0f;
     [SerializeField] float _minDistanceFromOrigin = 3.0f;
@@ -40,9 +37,12 @@ public class SwarmAgent : MonoBehaviour
     [SerializeField] GameObject _humanModel;
     [SerializeField] GameObject _smokeEffect;
 
+    [SerializeField] private float distanceToTarget;
+
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = 0.0f;
         _animator = GetComponentInChildren<Animator>();
     }
 
@@ -61,7 +61,10 @@ public class SwarmAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Current Agent Speed: " + _agent.speed);
         float distanceFromOrigin, distanceFromTarget;
+
+        distanceToTarget = _agent.remainingDistance;
         
 
         switch (_currentState)
@@ -106,6 +109,7 @@ public class SwarmAgent : MonoBehaviour
     public void HandlePlayerEnterChaseZone(Transform target)
     {
         Debug.Log("Player enter Chase zone");
+        var aimPointObject = GameObject.FindWithTag("AimPoint").GetComponent<Transform>();
         // 0. If not patrolling then continue
         if (_currentState != ENEMY_STATE.PATROL)
             return;
@@ -115,7 +119,8 @@ public class SwarmAgent : MonoBehaviour
 
         // 3. Update state to chase
         _currentState = ENEMY_STATE.CHASING;
-        _currentTarget = target;
+        _currentTarget = aimPointObject;
+        Debug.Log("Current target: " + _currentTarget.position.ToString());
     }
 
     public void DamagePlayer()
@@ -139,7 +144,8 @@ public class SwarmAgent : MonoBehaviour
 
     void ChaseTarget()
     {
-        _animator.SetFloat("speed", 5f);
+        _agent.speed = 10.0f;
+        _animator.SetFloat("speed", _agent.speed);
 
         _agent.SetDestination(_currentTarget.position);
         _currentState = ENEMY_STATE.CHASING;
@@ -147,16 +153,22 @@ public class SwarmAgent : MonoBehaviour
 
     void StopChasing()
     {
-        _animator.SetFloat("speed", 0.0f);
+        _agent.speed = 0.0f;
+        _animator.SetFloat("speed", _agent.speed);
+
         _agent.ResetPath();
         _currentState = ENEMY_STATE.IDLE;
     }
 
     void AttackTarget()
     {
-        _animator.SetFloat("speed", 0.0f);
-        _agent.ResetPath();
-        _currentState = ENEMY_STATE.CHASING;
+       _agent.speed = 0.0f;
+       _animator.SetFloat("speed", _agent.speed);
+
+       _animator.SetTrigger("attack");
+       
+       _agent.ResetPath();
+       _currentState = ENEMY_STATE.CHASING;
     }
 
     float DistanceBetweenObjects (Transform a, Transform b)
@@ -176,7 +188,9 @@ public class SwarmAgent : MonoBehaviour
 
     void BeginPatrol()
     {
-        _animator.SetFloat("speed", 2f);
+        _agent.speed = 2.0f;
+        _animator.SetFloat("speed", _agent.speed);
+
         _patrolPointIndex = 0;
         UpdateDestination(/* isPatrolling */ true);
         _currentState = ENEMY_STATE.PATROL;
@@ -188,9 +202,10 @@ public class SwarmAgent : MonoBehaviour
         {
             BeginPatrol();
         }
-        else if (Vector3.Distance(this.transform.position, _currentPatrolPoint.position) < 1)
+        else if (Vector3.Distance(this.transform.position, _currentPatrolPoint.position) <= 1)
         {
             IteratePatrolIndex();
+            Debug.Log("Patrolling area");
             UpdateDestination(/* isPatrolling */ true);
         }
     }
@@ -219,13 +234,17 @@ public class SwarmAgent : MonoBehaviour
         if (_currentState != ENEMY_STATE.IDLE)
             _currentState = ENEMY_STATE.IDLE;
         
-        _animator.SetFloat("speed", 2f);
+        _agent.speed = 2.0f;
+        _animator.SetFloat("speed", _agent.speed);
+
         _agent.SetDestination(_originPoint.position);
     }
 
     private IEnumerator TriggerDeath()
     {
-        _animator.SetFloat("speed", 0.0f);
+        _agent.speed = 0.0f;
+        _animator.SetFloat("speed", _agent.speed);
+
         _agent.ResetPath();
         _currentState = ENEMY_STATE.RESTORED;
 
