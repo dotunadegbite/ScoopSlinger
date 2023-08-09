@@ -37,9 +37,7 @@ public class MonsterStateMachine : MonoBehaviour
         const string k_AnimOnDamagedParameter = "OnDamaged";
         const string k_AnimChasingParameter = "IsChasing";
 
-        const float k_WalkingSpeed = 3.0f;
-        const float k_RunningSpeed = 10.0f;
-
+        private float _agentRunningSpeed = 10.0f;
         void Start()
         {
             m_MonsterController = GetComponent<MonsterController>();
@@ -51,6 +49,7 @@ public class MonsterStateMachine : MonoBehaviour
             m_MonsterController.onLostTarget += OnLostTarget;
             m_MonsterController.SetPathDestinationToClosestNode();
             m_MonsterController.onDamaged += OnDamaged;
+            _agentRunningSpeed = m_MonsterController.Stats.MaxSpeed;
 
             // Start patrolling
             AiState = AIState.Patrol;
@@ -76,8 +75,8 @@ public class MonsterStateMachine : MonoBehaviour
             }
             else if (!m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
-                animatorSpeed = 10.0f;
-                m_MonsterController.NavMeshAgent.speed = 10.0f;
+                animatorSpeed = _agentRunningSpeed;
+                m_MonsterController.NavMeshAgent.speed = _agentRunningSpeed;
             }
             else if (m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
