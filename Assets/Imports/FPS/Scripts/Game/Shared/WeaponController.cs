@@ -195,6 +195,8 @@ namespace Unity.FPS.Game
                 }
             }
         }
+        
+        
 
         public void AddCarriablePhysicalBullets(int count) => m_CarriedPhysicalBullets = Mathf.Max(m_CarriedPhysicalBullets + count, MaxAmmo);
 
@@ -239,6 +241,7 @@ namespace Unity.FPS.Game
             UpdateAmmo();
             UpdateCharge();
             UpdateContinuousShootSound();
+            
 
             if (Time.deltaTime > 0)
             {
@@ -246,7 +249,7 @@ namespace Unity.FPS.Game
                 m_LastMuzzlePosition = WeaponMuzzle.position;
             }
         }
-
+        
         void UpdateAmmo()
         {
             if (AutomaticReload && m_LastTimeShot + AmmoReloadDelay < Time.time && m_CurrentAmmo < MaxAmmo && !IsCharging)
@@ -329,6 +332,8 @@ namespace Unity.FPS.Game
                 }
             }
         }
+
+       
 
         public void ShowWeapon(bool show)
         {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5114838895850710326}
   - component: {fileID: 5646916673719110250}
   - component: {fileID: 6328702810459766709}
+  - component: {fileID: -3200367404912710480}
   m_Layer: 0
   m_Name: IceCreamScoopBasic
   m_TagString: Untagged
@@ -95,3 +96,21 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3200367404912710480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796278100810727425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74a30e9f2d5f18848a93edd39be2d726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icymaterial: {fileID: 2100000, guid: a6ce0cb30d59a6b489a83e9ffe838c2a, type: 2}
+  icymaterialsList:
+  - {fileID: 2100000, guid: a6ce0cb30d59a6b489a83e9ffe838c2a, type: 2}
+  - {fileID: 2100000, guid: e7a35a5344717e443896ffc33de5e6cc, type: 2}
+  - {fileID: 2100000, guid: da7fa5a7c0bffbb4cb42a032e79f05e5, type: 2}
+  - {fileID: 2100000, guid: add9685a84d2a8e40856a14fb7a9bb4b, type: 2}
