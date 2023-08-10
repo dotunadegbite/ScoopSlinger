@@ -21778,6 +21778,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.19
       objectReference: {fileID: 0}
+    - target: {fileID: 5974413354435511014, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5974413354435511015, guid: 8d15f5afdc4144f2ab4f2587f12d5ef1,
         type: 3}
       propertyPath: _minDistanceFromTarget
