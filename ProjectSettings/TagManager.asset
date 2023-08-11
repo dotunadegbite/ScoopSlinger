@@ -10,6 +10,7 @@ TagManager:
   - IceCreamScoop
   - ChaseZone
   - WinManager
+  - AimPoint
   layers:
   - Default
   - TransparentFX
