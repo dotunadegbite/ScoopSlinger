@@ -1240,6 +1240,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1529994086661740494, guid: cd1830789c85c4ca58b27bae2b231469,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1529994086661740495, guid: cd1830789c85c4ca58b27bae2b231469,
         type: 3}
       propertyPath: m_RootOrder
@@ -2094,7 +2099,7 @@ PrefabInstance:
     - target: {fileID: 2836813213335517523, guid: ddea0db04ad4644b4b8ac42fcc8abf44,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5751683770509914838, guid: ddea0db04ad4644b4b8ac42fcc8abf44,
         type: 3}
@@ -2174,6 +2179,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VanillaMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987078180625565361, guid: b002d47e5cbde4f24a28d91335273740,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b002d47e5cbde4f24a28d91335273740, type: 3}
