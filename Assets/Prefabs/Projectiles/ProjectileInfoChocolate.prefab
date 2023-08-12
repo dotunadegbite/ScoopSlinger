@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 8641008119343568124}
   - component: {fileID: 1738955286853915412}
   - component: {fileID: 3143960688044427293}
+  - component: {fileID: 2286043813997543047}
   m_Layer: 0
   m_Name: ProjectileInfoChocolate
   m_TagString: IceCreamScoop
@@ -111,6 +112,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e7a35a5344717e443896ffc33de5e6cc, type: 2}
   - {fileID: 2100000, guid: da7fa5a7c0bffbb4cb42a032e79f05e5, type: 2}
   - {fileID: 2100000, guid: add9685a84d2a8e40856a14fb7a9bb4b, type: 2}
+--- !u!114 &2286043813997543047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8186957201217615017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6fdd12985e4142afc1aafcd7315ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flavor: 0
 --- !u!1001 &1558588173345488645
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class AssignType : MonoBehaviour
+public enum FlavorType
 {
+    CHOCOLATE,
+    MINT,
+    BERRY,
+    VANILLA
+}
+public class MyFlavorType : MonoBehaviour
+{
+    public FlavorType Flavor;
 
-    public enum Types {Chocolate, Vanilla, Berry, Mint}
+    
     // Start is called before the first frame update
     void Start()
     {
