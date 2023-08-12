@@ -23,11 +23,11 @@ public class IceCreamHandler : MonoBehaviour
         if (Input.GetButtonDown("NextFlavor"))
         {
             swapTime = true;
-            Debug.Log("Truuuuuuuue");
+            //Debug.Log("Truuuuuuuue");
         }
         if (swapTime)
         {
-            Debug.Log("Time to swap");
+            //Debug.Log("Time to swap");
             Debug.Log(materialsArrayIndex);
             materialsArrayIndex = (materialsArrayIndex + 1) % 4;
             //rend.sharedMaterial = icymaterialsList[materialsArrayIndex];
