@@ -587,8 +587,7 @@ MonoBehaviour:
   DeathVfx: {fileID: 1037864198121816, guid: 638c8ca438a11c54987de876e500ed02, type: 3}
   DeathVfxSpawnPoint: {fileID: 7515184300175882713}
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  AttackRangeColor: {r: 1, g: 0, b: 0, a: 1}
-  DetectionRangeColor: {r: 0, g: 0, b: 1, a: 1}
+  Class: 0
   _chaseTriggerModule: {fileID: 5317992653387857698}
 --- !u!1 &7515184299602269730
 GameObject:
@@ -684,6 +683,7 @@ GameObject:
   - component: {fileID: 7515184299958398062}
   - component: {fileID: 57378050674539767}
   - component: {fileID: 4562676801225810954}
+  - component: {fileID: 4884909831278459105}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Untagged
@@ -731,6 +731,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: {fileID: 0}
+--- !u!114 &4884909831278459105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515184299958398063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6fdd12985e4142afc1aafcd7315ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoopFlavor: 0
 --- !u!1 &7515184300175882534
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,12 +920,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7667dcefa02b14a3c938c133c65ce009, type: 3}
---- !u!4 &3389071643030713768 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3308441391958685663, guid: 7667dcefa02b14a3c938c133c65ce009,
-    type: 3}
-  m_PrefabInstance: {fileID: 207613491288506999}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1392586143805337513 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1275331126171364830, guid: 7667dcefa02b14a3c938c133c65ce009,
@@ -934,6 +941,12 @@ Animator:
 --- !u!4 &390456523516143004 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7667dcefa02b14a3c938c133c65ce009,
+    type: 3}
+  m_PrefabInstance: {fileID: 207613491288506999}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3389071643030713768 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3308441391958685663, guid: 7667dcefa02b14a3c938c133c65ce009,
     type: 3}
   m_PrefabInstance: {fileID: 207613491288506999}
   m_PrefabAsset: {fileID: 0}

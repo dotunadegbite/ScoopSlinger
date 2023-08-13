@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class ApplyFlavorTypeToScoop : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Material[] iceCreamMaterialsList = new Material[4];
-    //public 
 
     void Start() // apply ice cream color and type on start
     {
+        //find index for ice cream scoop flavor based on game manager
         GameObject manager = GameObject.Find("GameManager");
         int iceCreamindex = manager.GetComponent<IceCreamHandler>().materialsArrayIndex;
+        
+        //change material to new one based on materials array
         Renderer rend = GetComponentInChildren<Renderer>();
         rend.enabled = true;
         rend.sharedMaterial = iceCreamMaterialsList[iceCreamindex];
-
-        //FlavorType type = gameObject.GetComponent<AssignType>.Flavor;
     }
 }
