@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IceCreamHandler : MonoBehaviour
 {
+    public FlavorType managerFlavor;
     public GameObject scoop;
     public int materialsArrayIndex = 0;
     private bool swapTime = false;
@@ -23,14 +24,29 @@ public class IceCreamHandler : MonoBehaviour
         if (Input.GetButtonDown("NextFlavor"))
         {
             swapTime = true;
-            //Debug.Log("Truuuuuuuue");
         }
         if (swapTime)
         {
-            //Debug.Log("Time to swap");
-            Debug.Log(materialsArrayIndex);
+            //next flavor
             materialsArrayIndex = (materialsArrayIndex + 1) % 4;
-            //rend.sharedMaterial = icymaterialsList[materialsArrayIndex];
+
+            //assign a type based on the index for scoop flavors currently equipped by the player
+            switch(materialsArrayIndex)
+            {
+                case 0:
+                    managerFlavor = FlavorType.CHOCOLATE;
+                    break;
+                case 1:
+                    managerFlavor = FlavorType.MINT;
+                    break;
+                case 2:
+                    managerFlavor = FlavorType.BERRY;
+                    break;
+                case 3:
+                    managerFlavor = FlavorType.VANILLA;
+                    break;
+
+            }
             swapTime = false;
         }
     }

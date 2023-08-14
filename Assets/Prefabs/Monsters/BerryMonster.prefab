@@ -5167,6 +5167,7 @@ GameObject:
   - component: {fileID: 2836813211921204114}
   - component: {fileID: 5755309862832706315}
   - component: {fileID: 8089815937883360246}
+  - component: {fileID: 4817197922932087388}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Untagged
@@ -5214,6 +5215,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: {fileID: 0}
+--- !u!114 &4817197922932087388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836813211921204115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6fdd12985e4142afc1aafcd7315ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoopFlavor: 2
 --- !u!1 &2836813212031973854
 GameObject:
   m_ObjectHideFlags: 0
@@ -5830,6 +5844,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1edd7bb87ae94657a6307dc1407fe6f, type: 3}
+--- !u!1 &1596534295558635557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1edd7bb87ae94657a6307dc1407fe6f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1939202792099773812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4050600997737852875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6710417805116927297, guid: c1edd7bb87ae94657a6307dc1407fe6f,
@@ -5851,12 +5871,6 @@ Transform:
 --- !u!4 &2117773569221991071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c1edd7bb87ae94657a6307dc1407fe6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1939202792099773812}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1596534295558635557 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1edd7bb87ae94657a6307dc1407fe6f,
     type: 3}
   m_PrefabInstance: {fileID: 1939202792099773812}
   m_PrefabAsset: {fileID: 0}

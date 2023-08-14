@@ -5588,8 +5588,7 @@ MonoBehaviour:
   DeathVfx: {fileID: 1037864198121816, guid: 638c8ca438a11c54987de876e500ed02, type: 3}
   DeathVfxSpawnPoint: {fileID: 6987078180780894663}
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  AttackRangeColor: {r: 1, g: 0, b: 0, a: 1}
-  DetectionRangeColor: {r: 0, g: 0, b: 1, a: 1}
+  Class: 0
   _chaseTriggerModule: {fileID: 4715573373261934396}
 --- !u!1 &6987078181903905783
 GameObject:
@@ -5632,6 +5631,7 @@ GameObject:
   - component: {fileID: 6987078182039747696}
   - component: {fileID: 610101219588615401}
   - component: {fileID: 4030080357938918420}
+  - component: {fileID: 4098936125390485019}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Untagged
@@ -5679,6 +5679,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: {fileID: 0}
+--- !u!114 &4098936125390485019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6987078182039747697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6fdd12985e4142afc1aafcd7315ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoopFlavor: 3
 --- !u!1 &6987078182322245422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5837,15 +5850,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1946972988382532199}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &772344765867048889 stripped
+--- !u!4 &4168863281724702936 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1275331126171364830, guid: 5a1d72ed84a69491da934241ae0a19e9,
+  m_CorrespondingSourceObject: {fileID: -6710417805116927297, guid: 5a1d72ed84a69491da934241ae0a19e9,
     type: 3}
   m_PrefabInstance: {fileID: 1946972988382532199}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2058058045638784396 stripped
+--- !u!4 &772344765867048889 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5a1d72ed84a69491da934241ae0a19e9,
+  m_CorrespondingSourceObject: {fileID: 1275331126171364830, guid: 5a1d72ed84a69491da934241ae0a19e9,
     type: 3}
   m_PrefabInstance: {fileID: 1946972988382532199}
   m_PrefabAsset: {fileID: 0}
@@ -5855,9 +5868,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1946972988382532199}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4168863281724702936 stripped
+--- !u!4 &2058058045638784396 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -6710417805116927297, guid: 5a1d72ed84a69491da934241ae0a19e9,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5a1d72ed84a69491da934241ae0a19e9,
     type: 3}
   m_PrefabInstance: {fileID: 1946972988382532199}
   m_PrefabAsset: {fileID: 0}

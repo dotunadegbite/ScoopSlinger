@@ -33,7 +33,7 @@ public class AgentDamageZone : MonoBehaviour
 
             if (other.CompareTag("IceCreamScoop"))
             {
-                _agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
+                //_agent.TakeDamage(10); // Max damage to enemy. Needs to be adjusted if max HP increased
             }
         }
     }

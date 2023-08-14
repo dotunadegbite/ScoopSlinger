@@ -90,7 +90,7 @@ public class WeaponController : MonoBehaviour
     public float AmmoReloadDelay = 2f;
 
     [Tooltip("Maximum amount of ammo in the gun")]
-    public int MaxAmmo = 8;
+    public int MaxAmmo = 15;
 
     [Header("Charging parameters (charging weapons only)")]
     [Tooltip("Trigger a shot when maximum charge is reached")]
