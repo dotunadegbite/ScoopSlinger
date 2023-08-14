@@ -42,8 +42,8 @@ namespace Unity.FPS.UI
             m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
             DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
-            m_FramerateCounter = FindObjectOfType<FramerateCounter>();
-            DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);
+            /* m_FramerateCounter = FindObjectOfType<FramerateCounter>();
+            DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);*/
 
             MenuRoot.SetActive(false);
 
@@ -56,8 +56,8 @@ namespace Unity.FPS.UI
             InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
             InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
 
-            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
-            FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);
+            /* FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
+            FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);*/
         }
 
         void Update()

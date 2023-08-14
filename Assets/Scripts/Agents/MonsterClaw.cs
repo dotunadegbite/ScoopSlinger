@@ -5,12 +5,12 @@ using UnityEngine;
 public class MonsterClaw : MonoBehaviour
 {
 
-    [SerializeField] private MonsterController _monster;
+    [SerializeField] private MonsterType _monster;
     private bool _isAttacking = false;
 
     void Awake()
     {
-        _monster = GetComponentInParent<MonsterController>();
+        _monster = GetComponentInParent<MonsterType>();
     }
     // Start is called before the first frame update
     void Start()

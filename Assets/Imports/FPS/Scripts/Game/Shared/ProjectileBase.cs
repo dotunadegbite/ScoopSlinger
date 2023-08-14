@@ -20,4 +20,14 @@ public abstract class ProjectileBase : MonoBehaviour
 
         OnShoot?.Invoke();
     }
+
+    public void Shoot(IceCreamScoopController controller)
+    {
+        Owner = controller.Owner;
+        InitialPosition = transform.position;
+        InitialDirection = transform.forward;
+        InheritedMuzzleVelocity = controller.MuzzleWorldVelocity;
+
+        OnShoot?.Invoke();
+    }
 }
