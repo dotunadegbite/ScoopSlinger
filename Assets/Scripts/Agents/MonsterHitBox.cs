@@ -35,19 +35,12 @@ public class MonsterHitBox : MonoBehaviour
         {
             var monsterScoop = m_MonsterType.IceCreamType;
             var monsterStats = m_MonsterType.Stats;
-            Debug.Log("Monster type: " + monsterScoop);
-
             var playerType = m_PlayerInventory.CurrentPlayerType;
-            Debug.Log("Current Player Type: " + playerType);
 
-            // && scoop.GetScoopType().Equals())
-            // && scoop.F.Equals(m_MonsterType.IceCreamType)
             if (monsterScoop == playerType)
             {
                 m_Health.TakeDamage(monsterStats.Damage, other.gameObject);
-                Debug.Log("Current Health: " + m_Health.CurrentHealth);
             }
-            // m_Health.TakeDamage(10f, other.gameObject);
         }
     }
 }

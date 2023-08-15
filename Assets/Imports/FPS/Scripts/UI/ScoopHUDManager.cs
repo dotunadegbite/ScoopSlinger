@@ -5,24 +5,24 @@ using UnityEngine;
 
 namespace Unity.FPS.UI
 {
-    public class WeaponHUDManager : MonoBehaviour
+    public class ScoopHUDManager : MonoBehaviour
     {
-        [Tooltip("UI panel containing the layoutGroup for displaying weapon ammo")]
+        /* [Tooltip("UI panel containing the layoutGroup for displaying weapon ammo")]
         public RectTransform AmmoPanel;
 
         [Tooltip("Prefab for displaying weapon ammo")]
         public GameObject AmmoCounterPrefab;
 
-        PlayerWeaponsManager m_PlayerWeaponsManager;
+        PlayerScoopManager m_PlayerScoopManager;
         List<AmmoCounter> m_AmmoCounters = new List<AmmoCounter>();
 
         void Start()
         {
-            m_PlayerWeaponsManager = FindObjectOfType<PlayerWeaponsManager>();
-            DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, ScoopHUDManager>(m_PlayerWeaponsManager,
+            m_PlayerScoopManager = FindObjectOfType<PlayerWeaponsManager>();
+            DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, ScoopHUDManager>(m_PlayerScoopManager,
                 this);
 
-            WeaponController activeWeapon = m_PlayerWeaponsManager.GetActiveWeapon();
+            WeaponController activeWeapon = m_PlayerScoopManager.GetActiveWeapon();
             if (activeWeapon)
             {
                 AddWeapon(activeWeapon, m_PlayerWeaponsManager.ActiveWeaponIndex);
@@ -67,6 +67,6 @@ namespace Unity.FPS.UI
         void ChangeWeapon(WeaponController weapon)
         {
             UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(AmmoPanel);
-        }
+        }*/
     }
 }
