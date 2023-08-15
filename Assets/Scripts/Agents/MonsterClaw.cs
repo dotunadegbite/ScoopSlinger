@@ -30,6 +30,7 @@ public class MonsterClaw : MonoBehaviour
         {
             _isAttacking = true;
             var otherDamage = other.gameObject.GetComponent<Damageable>();
+            Debug.Log("Enemy: " + _monster.IceCreamType + " does " + _monster.Stats.Damage + " damage");
             otherDamage.InflictDamage(_monster.Stats.Damage, false, _monster.gameObject);
         }
     }

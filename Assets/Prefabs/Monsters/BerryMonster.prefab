@@ -5415,7 +5415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27364eefd6dd0341ba72a3bfc0d9727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 20
+  MaxHealth: 2
   CriticalHealthRatio: 0.3
 --- !u!114 &2836813212711570570
 MonoBehaviour:
@@ -5585,6 +5585,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentType: 1
   m_ScoopNeeded: 2
+  PawnSpeed: 10
+  AverageSpeed: 8
+  TankSpeed: 5
+  PawnHealth: 1
+  AverageHealth: 2
+  TankHealth: 3
+  PawnDamage: 1
+  AverageDamage: 2
+  TankDamage: 3
 --- !u!1 &2836813213334675051
 GameObject:
   m_ObjectHideFlags: 0
@@ -5890,7 +5899,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &1939202792099773818
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5903,7 +5912,9 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
