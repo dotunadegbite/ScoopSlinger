@@ -1832,6 +1832,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ChaseZone
       objectReference: {fileID: 0}
+    - target: {fileID: 1287918292983209691, guid: b002d47e5cbde4f24a28d91335273740,
+        type: 3}
+      propertyPath: m_ScoopNeeded
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6987078180625565360, guid: b002d47e5cbde4f24a28d91335273740,
         type: 3}
       propertyPath: m_RootOrder

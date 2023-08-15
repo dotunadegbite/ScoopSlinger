@@ -78,6 +78,8 @@ public class PlayerScoopManager : MonoBehaviour
         
         m_ScoopInventoryManager = GetComponent<IceCreamInventoryManager>();
 
+        m_ScoopInventoryManager.OnScoopAmmoChangedEvent += PrintOutAmmo;
+
         SetFov(DefaultFov);
         InitalizeScoop();
     }
@@ -90,7 +92,7 @@ public class PlayerScoopManager : MonoBehaviour
 
             // handle shooting
             bool hasFired = scoopController.HandleShootInputs(
-                m_InputHandler.GetFireInputDown(), m_ScoopInventoryManager.GetCurrentScoopType());
+                m_InputHandler.GetFireInputDown(), m_ScoopInventoryManager);
 
         }
 
@@ -211,5 +213,12 @@ public class PlayerScoopManager : MonoBehaviour
         {
             t.gameObject.layer = layerIndex;
         }
+
+        scoopController.OnShoot += m_ScoopInventoryManager.UpdateAmmo;
+    }
+
+    void PrintOutAmmo(object sender, ScoopAmmoChangedEventArgs e)
+    {
+        Debug.Log("Scoop Type: " + e.AmmoType + " now has ammo count: " + e.CurrentAmmoCount + " out of " + e.MaxAmmoCount);
     }
 }

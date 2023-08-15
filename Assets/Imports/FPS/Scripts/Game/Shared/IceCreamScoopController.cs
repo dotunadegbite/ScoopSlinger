@@ -115,11 +115,11 @@ public class IceCreamScoopController : MonoBehaviour
         m_LastTimeShot = Time.time;
     }
 
-    public bool HandleShootInputs(bool inputDown, ProjectileBase currentScoop)
+    public bool HandleShootInputs(bool inputDown, IceCreamInventoryManager scoopInventory)
     {
         if (inputDown)
         {
-            return TryShoot(currentScoop);
+            return TryShoot(scoopInventory);
         }
         
         return false;
@@ -131,15 +131,17 @@ public class IceCreamScoopController : MonoBehaviour
         return spreadWorldDirection;
     }
 
-    bool TryShoot(ProjectileBase currentScoop)
+    bool TryShoot(IceCreamInventoryManager scoopInventory)
     {
-        if (m_CurrentAmmo >= 1f && m_LastTimeShot + DelayBetweenShots < Time.time)
+        if (m_LastTimeShot + DelayBetweenShots < Time.time)
         {
-            
-            HandleShoot(currentScoop);
-            m_CurrentAmmo -= 1f;
-
-            return true;
+            if (scoopInventory.CurrentAmmo > 0)
+            {
+                var currentScoop = scoopInventory.GetCurrentScoopType();
+                HandleShoot(currentScoop);
+                // m_CurrentAmmo -= 1f;
+                return true;
+            }
         }
 
         return false;

@@ -5,9 +5,9 @@ using UnityEngine;
 public enum FlavorType
 {
     CHOCOLATE,
-    MINT,
+    VANILLA,
     BERRY,
-    VANILLA
+    MINT,
 }
 
 public class IceCreamScoop : MonoBehaviour
