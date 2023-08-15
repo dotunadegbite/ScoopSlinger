@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27364eefd6dd0341ba72a3bfc0d9727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 3
   CriticalHealthRatio: 0.3
 --- !u!143 &4522747490508364607
 CharacterController:
@@ -555,8 +555,8 @@ MonoBehaviour:
   - {fileID: 1738955286853915412, guid: ceeecefe37d16467493738d83b9cc84c, type: 3}
   - {fileID: 1738955286853915412, guid: c15c2015d16639545ad2071199a5c283, type: 3}
   - {fileID: 1738955286853915412, guid: de5af6157e64f4c6ca2aa9467e58f4b6, type: 3}
-  m_CurrentScoopIndex: 0
   AllScoopTypes: 00000000030000000200000001000000
+  MaxScoopAmount: 10
 --- !u!1 &8275514745518284502
 GameObject:
   m_ObjectHideFlags: 0

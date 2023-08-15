@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27364eefd6dd0341ba72a3bfc0d9727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 20
+  MaxHealth: 1
   CriticalHealthRatio: 0.3
 --- !u!114 &7515184299207877494
 MonoBehaviour:
@@ -588,7 +588,6 @@ MonoBehaviour:
   DeathVfx: {fileID: 1037864198121816, guid: 638c8ca438a11c54987de876e500ed02, type: 3}
   DeathVfxSpawnPoint: {fileID: 7515184300175882713}
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  MonsterClass: {fileID: 0}
   _chaseTriggerModule: {fileID: 5317992653387857698}
 --- !u!114 &6880891933937011688
 MonoBehaviour:
@@ -604,6 +603,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentType: 0
   m_ScoopNeeded: 0
+  PawnSpeed: 10
+  AverageSpeed: 8
+  TankSpeed: 5
+  PawnHealth: 1
+  AverageHealth: 2
+  TankHealth: 3
+  PawnDamage: 1
+  AverageDamage: 2
+  TankDamage: 3
 --- !u!1 &7515184299602269730
 GameObject:
   m_ObjectHideFlags: 0
