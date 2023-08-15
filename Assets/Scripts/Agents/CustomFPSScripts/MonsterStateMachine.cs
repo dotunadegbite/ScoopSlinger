@@ -29,6 +29,7 @@ public class MonsterStateMachine : MonoBehaviour
 
         public AIState AiState { get; private set; }
         MonsterController m_MonsterController;
+        MonsterType m_MonsterType;
         AudioSource m_AudioSource;
 
         const string k_AnimMoveSpeedParameter = "MoveSpeed";
@@ -44,12 +45,14 @@ public class MonsterStateMachine : MonoBehaviour
             DebugUtility.HandleErrorIfNullGetComponent<MonsterController, MonsterStateMachine>(m_MonsterController, this,
                 gameObject);
 
+            m_MonsterType = GetComponent<MonsterType>();
+
             m_MonsterController.onAttack += OnAttack;
             m_MonsterController.onDetectedTarget += OnDetectedTarget;
             m_MonsterController.onLostTarget += OnLostTarget;
             m_MonsterController.SetPathDestinationToClosestNode();
             m_MonsterController.onDamaged += OnDamaged;
-            _agentRunningSpeed = m_MonsterController.Stats.MaxSpeed;
+            _agentRunningSpeed = m_MonsterType.Stats.MaxSpeed;
 
             // Start patrolling
             AiState = AIState.Patrol;

@@ -3,15 +3,16 @@ using Unity.FPS.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity.FPS.UI
-{
     public class CrosshairManager : MonoBehaviour
     {
         public Image CrosshairImage;
         public Sprite NullCrosshairSprite;
         public float CrosshairUpdateshrpness = 5f;
 
-        PlayerWeaponsManager m_WeaponsManager;
+        // PlayerWeaponsManager m_WeaponsManager;
+        PlayerScoopManager m_ScoopManager;
+        IceCreamScoopController m_ScoopController;
+
         bool m_WasPointingAtEnemy;
         RectTransform m_CrosshairRectTransform;
         CrosshairData m_CrosshairDataDefault;
@@ -20,18 +21,17 @@ namespace Unity.FPS.UI
 
         void Start()
         {
-            m_WeaponsManager = GameObject.FindObjectOfType<PlayerWeaponsManager>();
-            DebugUtility.HandleErrorIfNullFindObject<PlayerWeaponsManager, CrosshairManager>(m_WeaponsManager, this);
+            m_ScoopManager = GameObject.FindObjectOfType<PlayerScoopManager>();
+            DebugUtility.HandleErrorIfNullFindObject<PlayerScoopManager, CrosshairManager>(m_ScoopManager, this);
 
-            OnWeaponChanged(m_WeaponsManager.GetActiveWeapon());
-
-            m_WeaponsManager.OnSwitchedToWeapon += OnWeaponChanged;
+            m_ScoopController = m_ScoopManager.GetWeapon();
+            // InitializeCrossheir();
         }
 
         void Update()
         {
-            UpdateCrosshairPointingAtEnemy(false);
-            m_WasPointingAtEnemy = m_WeaponsManager.IsPointingAtEnemy;
+            /* UpdateCrosshairPointingAtEnemy(false);
+            m_WasPointingAtEnemy = m_ScoopManager.IsPointingAtEnemy; */
         }
 
         void UpdateCrosshairPointingAtEnemy(bool force)
@@ -39,13 +39,13 @@ namespace Unity.FPS.UI
             if (m_CrosshairDataDefault.CrosshairSprite == null)
                 return;
 
-            if ((force || !m_WasPointingAtEnemy) && m_WeaponsManager.IsPointingAtEnemy)
+            if ((force || !m_WasPointingAtEnemy) && m_ScoopManager.IsPointingAtEnemy)
             {
                 m_CurrentCrosshair = m_CrosshairDataTarget;
                 CrosshairImage.sprite = m_CurrentCrosshair.CrosshairSprite;
                 m_CrosshairRectTransform.sizeDelta = m_CurrentCrosshair.CrosshairSize * Vector2.one;
             }
-            else if ((force || m_WasPointingAtEnemy) && !m_WeaponsManager.IsPointingAtEnemy)
+            else if ((force || m_WasPointingAtEnemy) && !m_ScoopManager.IsPointingAtEnemy)
             {
                 m_CurrentCrosshair = m_CrosshairDataDefault;
                 CrosshairImage.sprite = m_CurrentCrosshair.CrosshairSprite;
@@ -60,30 +60,13 @@ namespace Unity.FPS.UI
                 Time.deltaTime * CrosshairUpdateshrpness) * Vector2.one;
         }
 
-        void OnWeaponChanged(WeaponController newWeapon)
+        void InitializeCrossheir()
         {
-            if (newWeapon)
-            {
-                CrosshairImage.enabled = true;
-                m_CrosshairDataDefault = newWeapon.CrosshairDataDefault;
-                m_CrosshairDataTarget = newWeapon.CrosshairDataTargetInSight;
-                m_CrosshairRectTransform = CrosshairImage.GetComponent<RectTransform>();
-                DebugUtility.HandleErrorIfNullGetComponent<RectTransform, CrosshairManager>(m_CrosshairRectTransform,
-                    this, CrosshairImage.gameObject);
-            }
-            else
-            {
-                if (NullCrosshairSprite)
-                {
-                    CrosshairImage.sprite = NullCrosshairSprite;
-                }
-                else
-                {
-                    CrosshairImage.enabled = false;
-                }
-            }
-
-            UpdateCrosshairPointingAtEnemy(true);
+            CrosshairImage.enabled = true;
+            m_CrosshairDataDefault = m_ScoopController.CrosshairDataDefault;
+            m_CrosshairDataTarget = m_ScoopController.CrosshairDataTargetInSight;
+            m_CrosshairRectTransform = CrosshairImage.GetComponent<RectTransform>();
+            DebugUtility.HandleErrorIfNullGetComponent<RectTransform, CrosshairManager>(m_CrosshairRectTransform,
+                this, CrosshairImage.gameObject);
         }
     }
-}

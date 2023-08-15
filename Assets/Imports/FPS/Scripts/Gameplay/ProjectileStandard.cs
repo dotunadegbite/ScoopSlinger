@@ -2,8 +2,7 @@
 using Unity.FPS.Game;
 using UnityEngine;
 
-namespace Unity.FPS.Gameplay
-{
+
     public class ProjectileStandard : ProjectileBase
     {
         [Header("General")] [Tooltip("Radius of this projectile's collision detection")]
@@ -275,5 +274,4 @@ namespace Unity.FPS.Gameplay
             Gizmos.color = RadiusColor;
             Gizmos.DrawSphere(transform.position, Radius);
         }
-    }
 }

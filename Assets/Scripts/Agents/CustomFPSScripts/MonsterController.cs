@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public enum MonsterType
+public enum EnemyType
 {
     PAWN,
     AVERAGE,
@@ -14,22 +14,6 @@ public enum MonsterType
 [RequireComponent(typeof(Health), typeof(Actor), typeof(NavMeshAgent))]
 public class MonsterController : MonoBehaviour
 {
-    [System.Serializable]
-    public struct MonsterStats
-    {
-        public float MaxHealth { get; private set;}
-        public float MaxSpeed { get; private set; }
-
-        public int Damage { get; private set; }
-
-        public MonsterStats(float maxHealth, float maxSpeed, int damage)
-        {
-            MaxHealth = maxHealth;
-            MaxSpeed = maxSpeed;
-            Damage = damage;
-        }
-    }
-
     [Header("Parameters")]
     [Tooltip("The Y height at which the enemy will be automatically killed (if it falls off of the level)")]
     public float SelfDestructYHeight = -20f;
@@ -54,13 +38,6 @@ public class MonsterController : MonoBehaviour
 
     [Header("Debug Display")] [Tooltip("Color of the sphere gizmo representing the path reaching range")]
     public Color PathReachingRangeColor = Color.yellow;
-
-    [Header("Monster Info")][Tooltip("Set the class type that the mosnter derives their stats from")]
-
-    public MonsterType Class;
-    
-    [Tooltip("Max Health, Speed and Damage for this monster")]
-    public MonsterStats Stats;
 
     public UnityAction onAttack;
     public UnityAction onDetectedTarget;
@@ -97,11 +74,6 @@ public class MonsterController : MonoBehaviour
     GameFlowManager m_GameFlowManager;
     MonsterHitBox m_MonsterHitBox;
 
-    void Awake()
-    {
-        SetMonsterStats();
-    }
-
     void Start()
     {
         m_MonsterManager = FindObjectOfType<MonsterManager>();
@@ -129,7 +101,6 @@ public class MonsterController : MonoBehaviour
         // Subscribe to damage & death actions
         m_Health.OnDie += OnDie;
         m_Health.OnDamaged += OnDamaged;
-        m_Health.MaxHealth = Stats.MaxHealth;
 
         ChaseTriggerModule.onDetectedTarget += OnDetectedTarget;
         onAttack += ChaseTriggerModule.OnAttack;
@@ -289,24 +260,5 @@ public class MonsterController : MonoBehaviour
 
         onAttack.Invoke();
         return true;
-    }
-
-    private void SetMonsterStats()
-    {
-        MonsterStats stats = new MonsterStats(0f, 0f, 0);
-        switch (Class)
-        {
-            case MonsterType.PAWN:
-                stats = new MonsterStats(1.0f, 10.0f, 1);
-                break;
-            case MonsterType.AVERAGE:
-                stats = new MonsterStats(2.0f, 8.0f, 2);
-                break;
-            case MonsterType.TANK:
-                stats = new MonsterStats(3.0f, 5.0f, 3);
-                break;
-        }
-
-        Stats = stats;
     }
 }
