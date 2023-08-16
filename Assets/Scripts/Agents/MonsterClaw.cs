@@ -28,6 +28,7 @@ public class MonsterClaw : MonoBehaviour
     {
         if (other.CompareTag("Player") && !_isAttacking)
         {
+            Debug.Log("Should feel pain");
             _isAttacking = true;
             var otherDamage = other.gameObject.GetComponent<Damageable>();
             otherDamage.InflictDamage(_monster.Stats.Damage, false, _monster.gameObject);
