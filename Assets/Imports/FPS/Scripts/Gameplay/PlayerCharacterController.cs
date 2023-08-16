@@ -199,7 +199,7 @@ public class PlayerCharacterController : MonoBehaviour
             else
             {
                 // land SFX
-                AudioSource.PlayOneShot(LandSfx);
+                // AudioSource.PlayOneShot(LandSfx);
             }
         }
 

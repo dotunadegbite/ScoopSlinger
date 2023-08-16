@@ -42,6 +42,7 @@ public class ChaseTriggerZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Physics.IgnoreLayerCollision(10, 12);
         
     }
 

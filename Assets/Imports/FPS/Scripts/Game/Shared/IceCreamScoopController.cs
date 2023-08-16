@@ -36,7 +36,7 @@ public class IceCreamScoopController : MonoBehaviour
     public ProjectileBase ProjectilePrefab;
 
     [Tooltip("Minimum duration between two shots")]
-    public float DelayBetweenShots = 0.5f;
+    public float DelayBetweenShots = 1.5f;
 
     [Tooltip("Number of bullets in a clip")]
     public int ClipSize = 30;
@@ -156,7 +156,7 @@ public class IceCreamScoopController : MonoBehaviour
         {
             Vector3 shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
             ProjectileBase newProjectile = Instantiate(currentScoop, WeaponMuzzle.position,
-                Quaternion.LookRotation(shotDirection));
+                Quaternion.LookRotation(transform.forward));
             
             newProjectile.Shoot(this);
         }

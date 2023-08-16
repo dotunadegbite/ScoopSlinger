@@ -11,6 +11,7 @@ TagManager:
   - ChaseZone
   - WinManager
   - AimPoint
+  - ScoopWeapon
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - 
   - FirstPersonWeapon
   - PhysicalAmmo
-  - 
+  - Enemy
   - 
   - 
   - 

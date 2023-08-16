@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb91c25208ad4480a05611bb0586ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoopType: 1
+  ScoopType: 3
 --- !u!1001 &1558588173345488645
 PrefabInstance:
   m_ObjectHideFlags: 0
