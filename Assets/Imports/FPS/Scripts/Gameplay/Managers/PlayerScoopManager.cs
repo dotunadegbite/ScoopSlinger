@@ -131,7 +131,6 @@ public class PlayerScoopManager : MonoBehaviour
 
     public IceCreamScoopController GetWeapon()
     {
-        Debug.Log("Get Weapon will return null: " + scoopController == null);
         return scoopController;
     }
 

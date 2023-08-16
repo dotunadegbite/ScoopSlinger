@@ -83,7 +83,7 @@ namespace Unity.FPS.UI
             m_IsMovingIn = false;
 
             // if a sound was set, play it
-            PlaySound(CompletedSound);
+            // PlaySound(CompletedSound);
 
             // start the fade out
             m_IsFadingOut = true;
@@ -110,7 +110,7 @@ namespace Unity.FPS.UI
                     // end the fade in
                     m_IsFadingIn = false;
 
-                    PlaySound(InitSound);
+                    // PlaySound(InitSound);
                 }
             }
 

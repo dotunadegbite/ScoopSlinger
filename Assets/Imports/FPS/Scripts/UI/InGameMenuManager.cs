@@ -53,10 +53,10 @@ namespace Unity.FPS.UI
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
 
-            InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
+            /*InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
             InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
 
-            /* FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
+            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
             FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);*/
         }
 
@@ -144,7 +144,7 @@ namespace Unity.FPS.UI
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
         }
 
-        void OnInvincibilityChanged(bool newValue)
+        /*void OnInvincibilityChanged(bool newValue)
         {
             m_PlayerHealth.Invincible = newValue;
         }
@@ -154,7 +154,7 @@ namespace Unity.FPS.UI
             m_FramerateCounter.UIText.gameObject.SetActive(newValue);
         }
 
-        /* public void OnShowControlButtonClicked(bool show)
+        public void OnShowControlButtonClicked(bool show)
         {
             ControlImage.SetActive(show);
         }*/

@@ -43,7 +43,7 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-        AudioUtility.SetMasterVolume(1);
+        AudioUtility.SetMasterVolume(0);
     }
 
     void Update()
