@@ -5712,7 +5712,6 @@ MonoBehaviour:
   ShadowsToggle: {fileID: 3594141482079338696}
   InvincibilityToggle: {fileID: 3208397456522781630}
   FramerateToggle: {fileID: 182439214301809106}
-  ControlImage: {fileID: 0}
 --- !u!114 &8518414907198698365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6183,7 +6182,7 @@ GameObject:
   - component: {fileID: 7962797225657588444}
   - component: {fileID: 6435932276210134536}
   m_Layer: 5
-  m_Name: UpdatedGameManager
+  m_Name: GameManagerRedux
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
