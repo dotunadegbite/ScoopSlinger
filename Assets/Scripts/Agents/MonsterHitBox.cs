@@ -33,13 +33,12 @@ public class MonsterHitBox : MonoBehaviour
         if (other.CompareTag("IceCreamScoop"))
         {
             var monsterScoop = m_MonsterType.IceCreamType;
-            var monsterStats = m_MonsterType.Stats;
             var playerType = m_PlayerInventory.CurrentPlayerType;
 
             Debug.Log("Player has type: " + playerType + " enemy has type " + monsterScoop);
             if (monsterScoop == playerType)
             {
-                m_Health.TakeDamage(monsterStats.Damage, other.gameObject);
+                m_Health.TakeDamage(1.0f, other.gameObject);
             }
         }
     }

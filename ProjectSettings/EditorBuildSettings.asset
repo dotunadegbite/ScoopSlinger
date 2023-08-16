@@ -32,9 +32,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Final/EnemySandbox.unity
-    guid: 28a6d7609c47942ceb23aeebd0001708
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Final/MainLevel-LevelLayout.unity
     guid: 1d078440c07780c43a12b5490c06c06c
