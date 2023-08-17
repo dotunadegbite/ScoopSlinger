@@ -13,13 +13,12 @@ public class MonsterHitBox : MonoBehaviour
     {
         m_Health = GetComponentInParent<Health>();
         m_MonsterType = GetComponentInParent<MonsterType>();
-
         m_PlayerInventory = FindObjectOfType<IceCreamInventoryManager>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        m_Health.MaxHealth = m_MonsterType.Stats.MaxHealth;
+        
     }
 
     // Update is called once per frame
@@ -34,12 +33,12 @@ public class MonsterHitBox : MonoBehaviour
         if (other.CompareTag("IceCreamScoop"))
         {
             var monsterScoop = m_MonsterType.IceCreamType;
-            var monsterStats = m_MonsterType.Stats;
             var playerType = m_PlayerInventory.CurrentPlayerType;
 
+            Debug.Log("Player has type: " + playerType + " enemy has type " + monsterScoop);
             if (monsterScoop == playerType)
             {
-                m_Health.TakeDamage(monsterStats.Damage, other.gameObject);
+                m_Health.TakeDamage(1.0f, other.gameObject);
             }
         }
     }

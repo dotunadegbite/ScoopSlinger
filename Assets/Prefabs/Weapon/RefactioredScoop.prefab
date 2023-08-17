@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: -7077143353379191986}
   m_Layer: 0
   m_Name: RefactioredScoop
-  m_TagString: Untagged
+  m_TagString: ScoopWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   WeaponMuzzle: {fileID: 4923879033194690336}
   ProjectilePrefab: {fileID: 1738955286853915412, guid: c15c2015d16639545ad2071199a5c283,
     type: 3}
-  DelayBetweenShots: 0.5
+  DelayBetweenShots: 0.25
   ClipSize: 30
   MaxAmmo: 10000
   AimOffset: {x: 0, y: 0, z: 0}
