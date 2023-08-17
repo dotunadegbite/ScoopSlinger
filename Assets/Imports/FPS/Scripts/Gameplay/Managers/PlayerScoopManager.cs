@@ -78,7 +78,7 @@ public class PlayerScoopManager : MonoBehaviour
         
         m_ScoopInventoryManager = GetComponent<IceCreamInventoryManager>();
 
-        m_ScoopInventoryManager.OnScoopAmmoChangedEvent += PrintOutAmmo;
+        // m_ScoopInventoryManager.OnScoopAmmoChangedEvent += PrintOutAmmo;
 
         SetFov(DefaultFov);
         InitalizeScoop();
@@ -131,7 +131,6 @@ public class PlayerScoopManager : MonoBehaviour
 
     public IceCreamScoopController GetWeapon()
     {
-        Debug.Log("Get Weapon will return null: " + scoopController == null);
         return scoopController;
     }
 

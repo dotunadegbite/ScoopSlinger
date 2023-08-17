@@ -30,16 +30,20 @@ public class GameFlowManager : MonoBehaviour
 
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
+    ObjectiveKillEnemies m_ObjectiveTracker;
 
     void Awake()
     {
-        EventManager.AddListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
+        // EventManager.AddListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
+        m_ObjectiveTracker = GetComponent<ObjectiveKillEnemies>();
+        m_ObjectiveTracker.OnAllEnemiesDefeated += OnPlayerVictory;
+
         EventManager.AddListener<PlayerDeathEvent>(OnPlayerDeath);
     }
 
     void Start()
     {
-        AudioUtility.SetMasterVolume(1);
+        AudioUtility.SetMasterVolume(0);
     }
 
     void Update()
@@ -60,7 +64,9 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    void OnAllObjectivesCompleted(AllObjectivesCompletedEvent evt) => EndGame(true);
+    // void OnAllObjectivesCompleted(AllObjectivesCompletedEvent evt) => EndGame(true);
+
+    void OnPlayerVictory() => EndGame(true);
     void OnPlayerDeath(PlayerDeathEvent evt) => EndGame(false);
 
     void EndGame(bool win)
@@ -106,7 +112,7 @@ public class GameFlowManager : MonoBehaviour
 
     void OnDestroy()
     {
-        EventManager.RemoveListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
+        // EventManager.RemoveListener<AllObjectivesCompletedEvent>(OnAllObjectivesCompleted);
         EventManager.RemoveListener<PlayerDeathEvent>(OnPlayerDeath);
     }
 }

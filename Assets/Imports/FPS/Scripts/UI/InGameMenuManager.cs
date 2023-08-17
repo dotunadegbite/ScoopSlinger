@@ -27,7 +27,7 @@ namespace Unity.FPS.UI
         public Toggle FramerateToggle;
 
         [Tooltip("GameObject for the controls")]
-        public GameObject ControlImage;
+        // public GameObject ControlImage;
 
         PlayerInputHandler m_PlayerInputsHandler;
         Health m_PlayerHealth;
@@ -53,10 +53,10 @@ namespace Unity.FPS.UI
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
 
-            InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
+            /*InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
             InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
 
-            /* FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
+            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
             FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);*/
         }
 
@@ -78,11 +78,11 @@ namespace Unity.FPS.UI
             if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
                 || (MenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
             {
-                if (ControlImage.activeSelf)
+                /* if (ControlImage.activeSelf)
                 {
                     ControlImage.SetActive(false);
                     return;
-                }
+                }*/
 
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
 
@@ -144,7 +144,7 @@ namespace Unity.FPS.UI
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
         }
 
-        void OnInvincibilityChanged(bool newValue)
+        /*void OnInvincibilityChanged(bool newValue)
         {
             m_PlayerHealth.Invincible = newValue;
         }
@@ -157,6 +157,6 @@ namespace Unity.FPS.UI
         public void OnShowControlButtonClicked(bool show)
         {
             ControlImage.SetActive(show);
-        }
+        }*/
     }
 }
