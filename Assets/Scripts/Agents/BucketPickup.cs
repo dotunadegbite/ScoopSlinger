@@ -4,51 +4,32 @@ using UnityEngine;
 
 public class BucketPickup : MonoBehaviour
 {
+    IceCreamInventoryManager m_ScoopAmmoManager;
+    private int currentAmmo;
+    public FlavorType bucketFlavor;
+    public int ammoIncrement;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        currentAmmo = FindObjectOfType<IceCreamInventoryManager>().CurrentAmmo; // grabs the current ammo.
+        bucketFlavor = GetComponent<MyFlavorType>().scoopFlavor; // grabs the specific bucket's type
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        transform.Rotate(0f, -50 * Time.deltaTime, 50 * Time.deltaTime, Space.Self); //rotation for ammo pickup
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("entered");
+        if(other.tag == "Player")
+        {
+            Debug.Log("showtime");
+            IceCreamInventoryManager playerIceCreamInvenManager = other.GetComponent<IceCreamInventoryManager>();
+            playerIceCreamInvenManager.AddAmmoByType(ammoIncrement, bucketFlavor);
+            Destroy(gameObject); // remove the bucket on pickup
+        }
     }
 }
-
-//using Unity.FPS.Game;
-//using UnityEngine;
-
-//namespace Unity.FPS.Gameplay
-//{
-//    public class AmmoPickup : Pickup
-//    {
-//        [Tooltip("Weapon those bullets are for")]
-//        public WeaponController Weapon;
-
-//        [Tooltip("Number of bullets the player gets")]
-//        public int BulletCount = 30;
-
-//        protected override void OnPicked(PlayerCharacterController byPlayer)
-//        {
-//            PlayerWeaponsManager playerWeaponsManager = byPlayer.GetComponent<PlayerWeaponsManager>();
-//            if (playerWeaponsManager)
-//            {
-//                WeaponController weapon = playerWeaponsManager.HasWeapon(Weapon);
-//                if (weapon != null)
-//                {
-//                    weapon.AddCarriablePhysicalBullets(BulletCount);
-
-//                    AmmoPickupEvent evt = Events.AmmoPickupEvent;
-//                    evt.Weapon = weapon;
-//                    EventManager.Broadcast(evt);
-
-//                    PlayPickupFeedback();
-//                    Destroy(gameObject);
-//                }
-//            }
-//        }
-//    }
-//}
-
