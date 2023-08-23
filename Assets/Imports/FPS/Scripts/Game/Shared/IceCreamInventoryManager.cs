@@ -79,7 +79,16 @@ public class IceCreamInventoryManager : MonoBehaviour
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs (m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount);
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs);
     }
-    
+
+    public void AddAmmoByType(int scoopDelta, FlavorType iceCreamType)
+    {
+        var updatedAmmoAmmount = Mathf.Min(MaxScoopAmount, m_ScoopAmmoCounts[iceCreamType] + scoopDelta);
+        m_ScoopAmmoCounts[iceCreamType] = updatedAmmoAmmount;
+
+        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(iceCreamType, m_ScoopAmmoCounts[iceCreamType], MaxScoopAmount); // set the event arguments (refer to top)
+        this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
+    }
+
     protected virtual void OnRaiseScoopAmmoChangedEvent(ScoopAmmoChangedEventArgs e)
     {
         EventHandler<ScoopAmmoChangedEventArgs> raiseEvent = OnScoopAmmoChangedEvent;
