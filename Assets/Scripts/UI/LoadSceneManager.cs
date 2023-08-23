@@ -21,12 +21,14 @@ public class LoadSceneManager : MonoBehaviour
 
     public void MoveToScene()
     {
+        Debug.Log("transition 1");
         SceneManager.LoadScene(SceneName);
     }
 
     //Added for a quick way to transition scenes on win
     public void MoveToScene(string SceneName)
     {
+        Debug.Log("transition 1");
         SceneManager.LoadScene(SceneName);
     }
 

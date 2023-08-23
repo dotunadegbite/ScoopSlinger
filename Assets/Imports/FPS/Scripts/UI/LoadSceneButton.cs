@@ -14,12 +14,14 @@ namespace Unity.FPS.UI
             if (EventSystem.current.currentSelectedGameObject == gameObject
                 && Input.GetButtonDown(GameConstants.k_ButtonNameSubmit))
             {
+                Debug.Log("transition button pressed");
                 LoadTargetScene();
             }
         }
 
         public void LoadTargetScene()
         {
+            Debug.Log("transition in load scene button triggered");
             SceneManager.LoadScene(SceneName);
         }
     }
