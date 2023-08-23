@@ -21,14 +21,13 @@ public class LoadSceneManager : MonoBehaviour
 
     public void MoveToScene()
     {
-        Debug.Log("transition 1");
+        Time.timeScale = 1f; // need to set timescale back to one in the case users quit game from the pause screen
         SceneManager.LoadScene(SceneName);
     }
 
     //Added for a quick way to transition scenes on win
     public void MoveToScene(string SceneName)
     {
-        Debug.Log("transition 1");
         SceneManager.LoadScene(SceneName);
     }
 
