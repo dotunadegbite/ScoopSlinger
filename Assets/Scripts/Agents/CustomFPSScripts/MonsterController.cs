@@ -60,6 +60,7 @@ public class MonsterController : MonoBehaviour
     
 
     [SerializeField] private ChaseTriggerZone _chaseTriggerModule;
+    [SerializeField] private GameObject _humanPrefab;
     public ChaseTriggerZone ChaseTriggerModule
     {
         get =>  _chaseTriggerModule;
@@ -241,6 +242,10 @@ public class MonsterController : MonoBehaviour
 
         // tells the game flow manager to handle the enemy destuction
         m_MonsterManager.UnregisterEnemy(this);
+
+        var human = Instantiate(_humanPrefab, DeathVfxSpawnPoint.position, transform.rotation);
+        /* var humanController = human.GetComponentInChildren<HumanController>();
+        humanController.TriggerPostTransformation(); */
 
         // this will call the OnDestroy function
         Destroy(gameObject, DeathDuration);
