@@ -21,6 +21,7 @@ public class LoadSceneManager : MonoBehaviour
 
     public void MoveToScene()
     {
+        Time.timeScale = 1f; // need to set timescale back to one in the case users quit game from the pause screen
         SceneManager.LoadScene(SceneName);
     }
 
