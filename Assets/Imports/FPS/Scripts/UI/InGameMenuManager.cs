@@ -42,9 +42,6 @@ namespace Unity.FPS.UI
             m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
             DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
-            /* m_FramerateCounter = FindObjectOfType<FramerateCounter>();
-            DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);*/
-
             MenuRoot.SetActive(false);
 
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
@@ -52,12 +49,6 @@ namespace Unity.FPS.UI
 
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
-
-            /*InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
-            InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
-
-            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
-            FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);*/
         }
 
         void Update()
@@ -87,7 +78,7 @@ namespace Unity.FPS.UI
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
 
             }
-
+            
             if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
             {
                 if (EventSystem.current.currentSelectedGameObject == null)

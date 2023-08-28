@@ -30,7 +30,7 @@ namespace Unity.FPS.UI
         public void RegisterObjective(Objective objective)
         {
             // instanciate the Ui element for the new objective
-            GameObject objectiveUIInstance =
+           /* GameObject objectiveUIInstance =
                 Instantiate(objective.IsOptional ? SecondaryObjectivePrefab : PrimaryObjectivePrefab, ObjectivePanel);
 
             if (!objective.IsOptional)
@@ -41,41 +41,41 @@ namespace Unity.FPS.UI
                 objectiveUIInstance.gameObject);
 
             // initialize the element and give it the objective description
-            toast.Initialize(objective.Title, objective.Description, "", objective.IsOptional, objective.DelayVisible);
+            // toast.Initialize(objective.Title, objective.Description, "", objective.IsOptional, objective.DelayVisible);
 
             m_ObjectivesDictionnary.Add(objective, toast);
 
-            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(ObjectivePanel);
+            // UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(ObjectivePanel);*/
         }
 
         public void UnregisterObjective(Objective objective)
         {
-            // if the objective if in the list, make it fade out, and remove it from the list
+          /*  // if the objective if in the list, make it fade out, and remove it from the list
             if (m_ObjectivesDictionnary.TryGetValue(objective, out ObjectiveToast toast) && toast != null)
             {
-                toast.Complete();
+                // toast.Complete();
             }
 
-            m_ObjectivesDictionnary.Remove(objective);
+            m_ObjectivesDictionnary.Remove(objective); */
         }
 
         void OnUpdateObjective(ObjectiveUpdateEvent evt)
         {
-            if (m_ObjectivesDictionnary.TryGetValue(evt.Objective, out ObjectiveToast toast) && toast != null)
+            /* if (m_ObjectivesDictionnary.TryGetValue(evt.Objective, out ObjectiveToast toast) && toast != null)
             {
                 // set the new updated description for the objective, and forces the content size fitter to be recalculated
                 Canvas.ForceUpdateCanvases();
                 if (!string.IsNullOrEmpty(evt.DescriptionText))
-                    toast.DescriptionTextContent.text = evt.DescriptionText;
+                    // toast.DescriptionTextContent.text = evt.DescriptionText;
 
                 if (!string.IsNullOrEmpty(evt.CounterText))
-                    toast.CounterTextContent.text = evt.CounterText;
+                    // toast.CounterTextContent.text = evt.CounterText;
 
                 if (toast.GetComponent<RectTransform>())
                 {
                     UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(toast.GetComponent<RectTransform>());
                 }
-            }
+            } */
         }
 
         void OnDestroy()
