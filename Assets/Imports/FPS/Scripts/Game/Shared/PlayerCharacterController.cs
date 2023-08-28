@@ -148,10 +148,6 @@ public class PlayerCharacterController : MonoBehaviour
         DebugUtility.HandleErrorIfNullGetComponent<PlayerInputHandler, PlayerCharacterController>(m_InputHandler,
             this, gameObject);
 
-        /* m_WeaponsManager = GetComponent<PlayerWeaponsManager>();
-        DebugUtility.HandleErrorIfNullGetComponent<PlayerWeaponsManager, PlayerCharacterController>(
-            m_WeaponsManager, this, gameObject);*/
-
         m_Health = GetComponent<Health>();
         DebugUtility.HandleErrorIfNullGetComponent<Health, PlayerCharacterController>(m_Health, this, gameObject);
 

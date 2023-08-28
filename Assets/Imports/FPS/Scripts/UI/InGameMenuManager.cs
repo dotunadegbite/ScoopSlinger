@@ -69,16 +69,9 @@ namespace Unity.FPS.UI
             if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
                 || (MenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
             {
-                /* if (ControlImage.activeSelf)
-                {
-                    ControlImage.SetActive(false);
-                    return;
-                }*/
-
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
-
             }
-            
+
             if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
             {
                 if (EventSystem.current.currentSelectedGameObject == null)
@@ -134,20 +127,5 @@ namespace Unity.FPS.UI
         {
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
         }
-
-        /*void OnInvincibilityChanged(bool newValue)
-        {
-            m_PlayerHealth.Invincible = newValue;
-        }
-
-        void OnFramerateCounterChanged(bool newValue)
-        {
-            m_FramerateCounter.UIText.gameObject.SetActive(newValue);
-        }
-
-        public void OnShowControlButtonClicked(bool show)
-        {
-            ControlImage.SetActive(show);
-        }*/
     }
 }

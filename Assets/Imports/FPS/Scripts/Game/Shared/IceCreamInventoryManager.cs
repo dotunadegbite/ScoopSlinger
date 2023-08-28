@@ -86,18 +86,9 @@ public class IceCreamInventoryManager : MonoBehaviour
     {
         var currentIndex = (int)m_ScoopType;
         int nextIndex = switchUp ? Mathf.Max(0, currentIndex - 1) :  Mathf.Min(AllScoopTypes.Length - 1, currentIndex + 1);
-        /*if (switchUp)
-        {
-            nextIndex = Mathf.Max(0, currentIndex - 1);
-        }
-        else
-        {
-            nextIndex = Mathf.Min(AllScoopTypes.Length - 1, currentIndex + 1);
-        }*/
 
         m_ScoopType = (FlavorType)nextIndex;
 
-        // Debug.Log("Current Scoop after SwitchScoop going " + switchUp + " is: " + m_ScoopType + " with index " + (int)m_ScoopType);
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount); // set the event arguments (refer to top)
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
     }
