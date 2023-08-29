@@ -23,10 +23,8 @@ public class BucketPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("entered");
         if(other.tag == "Player")
         {
-            Debug.Log("showtime");
             IceCreamInventoryManager playerIceCreamInvenManager = other.GetComponent<IceCreamInventoryManager>();
             playerIceCreamInvenManager.AddAmmoByType(ammoIncrement, bucketFlavor);
             Destroy(gameObject); // remove the bucket on pickup
