@@ -24,6 +24,7 @@ public class IceCreamInventoryManager : MonoBehaviour
 
     FlavorType m_ScoopType;
     Dictionary<FlavorType, int> m_ScoopAmmoCounts;
+    PlayerInputHandler m_InputHandler;
 
     public FlavorType CurrentPlayerType => m_ScoopType;
 
@@ -32,6 +33,11 @@ public class IceCreamInventoryManager : MonoBehaviour
     public int CurrentAmmo
     {
         get => m_ScoopAmmoCounts[m_ScoopType];
+    }
+
+    void Awake()
+    {
+        m_InputHandler = GetComponent<PlayerInputHandler>();
     }
 
     // Start is called before the first frame update
@@ -44,27 +50,14 @@ public class IceCreamInventoryManager : MonoBehaviour
         {
             m_ScoopAmmoCounts[flavor] = MaxScoopAmount;
         }
+
+        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs (m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount);
+        this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            m_ScoopType = FlavorType.CHOCOLATE;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            m_ScoopType = FlavorType.VANILLA;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            m_ScoopType = FlavorType.BERRY;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            m_ScoopType = FlavorType.MINT;
-        }
     }
 
     public ProjectileBase GetCurrentScoopType()
@@ -86,6 +79,25 @@ public class IceCreamInventoryManager : MonoBehaviour
         m_ScoopAmmoCounts[iceCreamType] = updatedAmmoAmmount;
 
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(iceCreamType, m_ScoopAmmoCounts[iceCreamType], MaxScoopAmount); // set the event arguments (refer to top)
+        this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
+    }
+
+    public void SwitchScoop (bool switchUp)
+    {
+        var currentIndex = (int)m_ScoopType;
+        int nextIndex = switchUp ? Mathf.Max(0, currentIndex - 1) :  Mathf.Min(AllScoopTypes.Length - 1, currentIndex + 1);
+
+        m_ScoopType = (FlavorType)nextIndex;
+
+        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount); // set the event arguments (refer to top)
+        this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
+    }
+
+    public void SwitchScoopToIndex (int scoopIndex)
+    {
+        m_ScoopType = (FlavorType)scoopIndex - 1;
+
+        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount); // set the event arguments (refer to top)
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
     }
 

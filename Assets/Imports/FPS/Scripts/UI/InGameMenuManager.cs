@@ -42,9 +42,6 @@ namespace Unity.FPS.UI
             m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
             DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
-            /* m_FramerateCounter = FindObjectOfType<FramerateCounter>();
-            DebugUtility.HandleErrorIfNullFindObject<FramerateCounter, InGameMenuManager>(m_FramerateCounter, this);*/
-
             MenuRoot.SetActive(false);
 
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
@@ -52,12 +49,6 @@ namespace Unity.FPS.UI
 
             ShadowsToggle.isOn = QualitySettings.shadows != ShadowQuality.Disable;
             ShadowsToggle.onValueChanged.AddListener(OnShadowsChanged);
-
-            /*InvincibilityToggle.isOn = m_PlayerHealth.Invincible;
-            InvincibilityToggle.onValueChanged.AddListener(OnInvincibilityChanged);
-
-            FramerateToggle.isOn = m_FramerateCounter.UIText.gameObject.activeSelf;
-            FramerateToggle.onValueChanged.AddListener(OnFramerateCounterChanged);*/
         }
 
         void Update()
@@ -78,14 +69,7 @@ namespace Unity.FPS.UI
             if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
                 || (MenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
             {
-                /* if (ControlImage.activeSelf)
-                {
-                    ControlImage.SetActive(false);
-                    return;
-                }*/
-
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
-
             }
 
             if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
@@ -143,20 +127,5 @@ namespace Unity.FPS.UI
         {
             QualitySettings.shadows = newValue ? ShadowQuality.All : ShadowQuality.Disable;
         }
-
-        /*void OnInvincibilityChanged(bool newValue)
-        {
-            m_PlayerHealth.Invincible = newValue;
-        }
-
-        void OnFramerateCounterChanged(bool newValue)
-        {
-            m_FramerateCounter.UIText.gameObject.SetActive(newValue);
-        }
-
-        public void OnShowControlButtonClicked(bool show)
-        {
-            ControlImage.SetActive(show);
-        }*/
     }
 }

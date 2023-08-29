@@ -96,6 +96,25 @@ public class PlayerScoopManager : MonoBehaviour
 
         }
 
+        // weapon switch handling
+        if (!IsAiming)
+        {
+            int switchWeaponInput = m_InputHandler.GetSwitchWeaponInput();
+            if (switchWeaponInput != 0)
+            {
+                bool switchUp = switchWeaponInput > 0;
+                m_ScoopInventoryManager.SwitchScoop(switchUp);
+            }
+            else
+            {
+                switchWeaponInput = m_InputHandler.GetSelectWeaponInput();
+                if (switchWeaponInput != 0)
+                {
+                    m_ScoopInventoryManager.SwitchScoopToIndex(switchWeaponInput);
+                }
+            }
+        }
+
         // Pointing at enemy handling
         IsPointingAtEnemy = false;
         if (scoopController)
