@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
 
     public UnityAction<float, GameObject> OnDamaged;
     public UnityAction<float> OnHealed;
+    public UnityAction InitHealth;
     public UnityAction OnDie;
 
     public float CurrentHealth { get; set; }
@@ -23,6 +24,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         CurrentHealth = MaxHealth;
+        InitHealth?.Invoke();
     }
 
     void Update()
