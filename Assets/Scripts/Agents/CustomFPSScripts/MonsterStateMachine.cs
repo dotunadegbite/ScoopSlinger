@@ -60,10 +60,10 @@ public class MonsterStateMachine : MonoBehaviour
             AiState = AIState.Patrol;
 
             // adding a audio source to play the movement sound on it
-            /*m_AudioSource = GetComponent<AudioSource>();
+            m_AudioSource = GetComponent<AudioSource>();
             DebugUtility.HandleErrorIfNullGetComponent<AudioSource, MonsterStateMachine>(m_AudioSource, this, gameObject);
             m_AudioSource.clip = MovementSound;
-            m_AudioSource.Play();*/
+            m_AudioSource.Play();
         }
 
         void Update()
@@ -78,7 +78,6 @@ public class MonsterStateMachine : MonoBehaviour
             {
                 animatorSpeed = 0.0f;
                 m_MonsterController.NavMeshAgent.speed = 0.0f;
-
             }
             else if (AiState == AIState.Patrol)
             {
@@ -126,8 +125,9 @@ public class MonsterStateMachine : MonoBehaviour
 
                     break;
                 case AIState.Attack:
-                    // Transition to follow when no longer a target in attack range
-                    if (!m_MonsterController.IsTargetInAttackRange)
+                    if (Vector3.Distance(m_MonsterController.KnownDetectedTarget.transform.position,
+                            m_MonsterController.ChaseTriggerModule.DetectionSourcePoint.position)
+                        >= MinDistanceForAttack)
                     {
                         AiState = AIState.Follow;
                     }
@@ -158,15 +158,21 @@ public class MonsterStateMachine : MonoBehaviour
                     }
                     else
                     {
-                        m_MonsterController.SetNavDestination(transform.position, /* saveDestination */ true);
+                        if (m_MonsterController.IsTargetInAttackRange)
+                        {
+                            var isInAttackingRange = Vector3.Distance(m_MonsterController.KnownDetectedTarget.transform.position,
+                            m_MonsterController.ChaseTriggerModule.DetectionSourcePoint.position) >= MinDistanceForAttack;
+
+                            m_MonsterController.SetNavDestination(transform.position, /* saveDestination */ true);
+                            m_MonsterController.TryAttack();
+                        }
+                        else
+                        {
+                            m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position, /* saveDestination */ true);
+                        }
                     }
 
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
-
-                    if (m_MonsterController.IsTargetInAttackRange)
-                    {
-                        m_MonsterController.TryAttack(m_MonsterController.KnownDetectedTarget.transform.position);
-                    }
                     
                     break;
             }

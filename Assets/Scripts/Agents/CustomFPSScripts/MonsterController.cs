@@ -30,6 +30,10 @@ public class MonsterController : MonoBehaviour
     [Header("Sounds")] [Tooltip("Sound played when recieving damages")]
     public AudioClip DamageTick;
 
+    public AudioClip OnDeathSfx;
+
+    public AudioClip OnAttackSfx;
+
     [Header("VFX")] [Tooltip("The VFX prefab spawned when the enemy dies")]
     public GameObject DeathVfx;
 
@@ -76,6 +80,7 @@ public class MonsterController : MonoBehaviour
     MonsterHitBox m_MonsterHitBox;
 
     private Vector3 m_CurrentDestination;
+    bool m_WasDamagedThisFrame;
 
     void Start()
     {
@@ -106,12 +111,13 @@ public class MonsterController : MonoBehaviour
         m_Health.OnDamaged += OnDamaged;
 
         ChaseTriggerModule.onDetectedTarget += OnDetectedTarget;
-        onAttack += ChaseTriggerModule.OnAttack;
     }
 
     void Update()
     {
         EnsureIsWithinLevelBounds();
+
+        m_WasDamagedThisFrame = false;
     }
 
     void EnsureIsWithinLevelBounds()
@@ -240,14 +246,16 @@ public class MonsterController : MonoBehaviour
         // test if the damage source is the player
         if (damageSource && !damageSource.GetComponent<MonsterController>())
         {
-            ChaseTriggerModule.OnDamaged(damageSource);
+            // ChaseTriggerModule.OnDamaged(damageSource);
             
             onDamaged?.Invoke();
             m_LastTimeDamaged = Time.time;
         
             // play the damage tick sound
-            /* if (DamageTick && !m_WasDamagedThisFrame)
-                AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f); */
+            if (DamageTick && !m_WasDamagedThisFrame)
+                AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);
+            
+            m_WasDamagedThisFrame = true;
         }
     }
 
@@ -257,12 +265,14 @@ public class MonsterController : MonoBehaviour
         var vfx = Instantiate(DeathVfx, DeathVfxSpawnPoint.position, Quaternion.identity);
         Destroy(vfx, 5f);
 
+        if (OnDeathSfx)
+        {
+            AudioUtility.CreateSFX(OnDeathSfx, transform.position, AudioUtility.AudioGroups.DamageTick, 1f);
+        }
         // tells the game flow manager to handle the enemy destuction
         m_MonsterManager.UnregisterEnemy(this);
 
         var human = Instantiate(_humanPrefab, DeathVfxSpawnPoint.position, transform.rotation);
-        /* var humanController = human.GetComponentInChildren<HumanController>();
-        humanController.TriggerPostTransformation(); */
 
         // this will call the OnDestroy function
         Destroy(gameObject, DeathDuration);
@@ -275,12 +285,21 @@ public class MonsterController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, PathReachingRadius);
     }
 
-    public bool TryAttack(Vector3 enemyPosition)
+    public bool TryAttack()
     {
         if (m_GameFlowManager.GameIsEnding)
             return false;
+        
+        if (IsTargetInAttackRange)
+        {
+            onAttack.Invoke();
+            if (OnAttackSfx)
+            {
+                AudioUtility.CreateSFX(OnAttackSfx, transform.position, AudioUtility.AudioGroups.EnemyDetection, 1f);
+            }
+            return true;
+        }
 
-        onAttack.Invoke();
-        return true;
+        return false;
     }
 }

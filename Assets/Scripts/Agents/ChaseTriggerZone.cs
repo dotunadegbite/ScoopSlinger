@@ -69,6 +69,7 @@ public class ChaseTriggerZone : MonoBehaviour
 
     void HandleExitAttackZone()
     {
+        // Debug.Log("Leave attack zone");
         IsTargetInAttackRange = false;
     }
 
@@ -76,7 +77,7 @@ public class ChaseTriggerZone : MonoBehaviour
 
     public virtual void OnDetect() => onDetectedTarget?.Invoke();
 
-    public virtual void OnDamaged(GameObject damageSource)
+    /* public virtual void OnDamaged(GameObject damageSource)
     {
         if (Animator)
         {
@@ -90,5 +91,5 @@ public class ChaseTriggerZone : MonoBehaviour
         {
             Animator.SetTrigger(k_AnimAttackParameter);
         }
-    }
+    }*/
 }
