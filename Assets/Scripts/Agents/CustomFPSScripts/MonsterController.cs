@@ -75,6 +75,8 @@ public class MonsterController : MonoBehaviour
     GameFlowManager m_GameFlowManager;
     MonsterHitBox m_MonsterHitBox;
 
+    private Vector3 m_CurrentDestination;
+
     void Start()
     {
         m_MonsterManager = FindObjectOfType<MonsterManager>();
@@ -148,6 +150,16 @@ public class MonsterController : MonoBehaviour
         return PatrolPath && PatrolPath.PathNodes.Count > 0;
     }
 
+    public void StopAgent()
+    {
+        SetNavDestination(transform.position, /* saveDestination */ false);
+    }
+
+    public void ResumeAgent()
+    {
+        SetNavDestination(m_CurrentDestination, /* saveDestination */ true);
+    }
+
     public void ResetPathDestination()
     {
         m_PathDestinationNodeIndex = 0;
@@ -187,10 +199,15 @@ public class MonsterController : MonoBehaviour
         }
     }
 
-    public void SetNavDestination(Vector3 destination)
+    public void SetNavDestination(Vector3 destination, bool saveDestination)
     {
         if (NavMeshAgent)
         {
+            if (saveDestination)
+            {
+                m_CurrentDestination = destination;
+            }
+
             NavMeshAgent.SetDestination(destination);
         }
     }

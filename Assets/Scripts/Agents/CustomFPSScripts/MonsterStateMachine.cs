@@ -39,6 +39,8 @@ public class MonsterStateMachine : MonoBehaviour
         const string k_AnimChasingParameter = "IsChasing";
 
         private float _agentRunningSpeed = 10.0f;
+
+        private bool _isInAnimationOverride = false;
         void Start()
         {
             m_MonsterController = GetComponent<MonsterController>();
@@ -71,7 +73,14 @@ public class MonsterStateMachine : MonoBehaviour
 
             float moveSpeed = m_MonsterController.NavMeshAgent.velocity.magnitude;
             float animatorSpeed = moveSpeed;
-            if (AiState == AIState.Patrol)
+
+            if (_isInAnimationOverride)
+            {
+                animatorSpeed = 0.0f;
+                m_MonsterController.NavMeshAgent.speed = 0.0f;
+
+            }
+            else if (AiState == AIState.Patrol)
             {
                 animatorSpeed = 3.0f;
                 m_MonsterController.NavMeshAgent.speed = 3.0f;
@@ -90,6 +99,18 @@ public class MonsterStateMachine : MonoBehaviour
             Animator.SetFloat(k_AnimMoveSpeedParameter, animatorSpeed);
         }
 
+        public void StartAnimationOverride()
+        {
+            _isInAnimationOverride = true;
+            m_MonsterController.StopAgent();
+        }
+
+        public void StopAnimationOverride()
+        {
+            _isInAnimationOverride = false;
+            m_MonsterController.ResumeAgent();
+        }
+
         void UpdateAiStateTransitions()
         {
             // Handle transitions 
@@ -100,7 +121,7 @@ public class MonsterStateMachine : MonoBehaviour
                     if (m_MonsterController.HasSeenPlayer && m_MonsterController.IsTargetInAttackRange)
                     {
                         AiState = AIState.Attack;
-                        m_MonsterController.SetNavDestination(transform.position);
+                        m_MonsterController.SetNavDestination(transform.position, /* saveDestination */ true);
                     }
 
                     break;
@@ -122,10 +143,10 @@ public class MonsterStateMachine : MonoBehaviour
             {
                 case AIState.Patrol:
                     m_MonsterController.UpdatePathDestination();
-                    m_MonsterController.SetNavDestination(m_MonsterController.GetDestinationOnPath());
+                    m_MonsterController.SetNavDestination(m_MonsterController.GetDestinationOnPath(), /* saveDestination */ true);
                     break;
                 case AIState.Follow:
-                    m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position);
+                    m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position, /* saveDestination */ true);
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
                     break;
                 case AIState.Attack:
@@ -133,11 +154,11 @@ public class MonsterStateMachine : MonoBehaviour
                             m_MonsterController.ChaseTriggerModule.DetectionSourcePoint.position)
                         >= MinDistanceForAttack)
                     {
-                        m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position);
+                        m_MonsterController.SetNavDestination(m_MonsterController.KnownDetectedTarget.transform.position, /* saveDestination */ true);
                     }
                     else
                     {
-                        m_MonsterController.SetNavDestination(transform.position);
+                        m_MonsterController.SetNavDestination(transform.position, /* saveDestination */ true);
                     }
 
                     m_MonsterController.OrientTowards(m_MonsterController.KnownDetectedTarget.transform.position);
