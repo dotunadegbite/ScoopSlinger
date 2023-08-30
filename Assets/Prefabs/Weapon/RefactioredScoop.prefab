@@ -71,18 +71,18 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3107520400157050628}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.122
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 94
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -190,7 +190,7 @@ MonoBehaviour:
   AimOffset: {x: 0, y: 0, z: 0}
   AimZoomRatio: 1
   WeaponAnimator: {fileID: 7336484141739995338}
-  ShootSfx: {fileID: 0}
+  ShootSfx: {fileID: 8300000, guid: 8ed3ab3e2e4f3e34e9dd4578dc797026, type: 3}
   ChangeWeaponSfx: {fileID: 0}
 --- !u!1001 &244106050235624779
 PrefabInstance:

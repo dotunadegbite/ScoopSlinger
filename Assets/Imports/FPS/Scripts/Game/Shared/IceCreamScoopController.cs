@@ -164,10 +164,10 @@ public class IceCreamScoopController : MonoBehaviour
         m_LastTimeShot = Time.time;
 
         // play shoot SFX
-        /*if (ShootSfx)
+        if (ShootSfx)
         {
             m_ShootAudioSource.PlayOneShot(ShootSfx);
-        }*/
+        }
 
         // Trigger attack animation if there is any
         if (WeaponAnimator)
