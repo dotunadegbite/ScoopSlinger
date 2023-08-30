@@ -59,9 +59,9 @@ MonoBehaviour:
   EndGameFadeCanvasGroup: {fileID: 5093768108396794027}
   WinSceneName: WinScene
   DelayBeforeFadeToBlack: 4
-  WinGameMessage: All objectives completed
+  WinGameMessage: Everyone is Fed!
   DelayBeforeWinMessage: 2
-  VictorySound: {fileID: 8300000, guid: a533219934975884e81c1add37af9930, type: 3}
+  VictorySound: {fileID: 8300000, guid: 131e3da3f80ff462f93329d3cca32a03, type: 3}
   LoseSceneName: LoseScene
 --- !u!114 &1311364589781450919
 MonoBehaviour:
@@ -108,19 +108,18 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31571592373846405}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243216665894616700, guid: fcc71635aab95ff4fbdf1880bf2afa2f,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 9f77bc864e3f24c85ac29a86f7f47e2b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.476
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 101
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
