@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class MonsterAnimationController : MonoBehaviour
 {
-    MonsterStateMachine m_StateMachine;
+    public AudioClip OnAttackSfx;
+    public AudioClip OnDamageSfx;
 
+    MonsterStateMachine m_StateMachine;
+    AudioSource m_AudioSource;
     void Awake()
     {
         m_StateMachine = GetComponentInParent<MonsterStateMachine>();
+        m_AudioSource = GetComponentInParent<AudioSource>();
     }
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,11 @@ public class MonsterAnimationController : MonoBehaviour
     public void StartEating()
     {
         m_StateMachine.StartAnimationOverride();
+        if (OnDamageSfx)
+        {
+            // AudioUtility.CreateSFX(OnAttackSfx, transform.position, AudioUtility.AudioGroups.EnemyDetection, 1f);
+            m_AudioSource.PlayOneShot(OnDamageSfx);
+        }
     }
 
     public void StopEating()
@@ -35,6 +44,11 @@ public class MonsterAnimationController : MonoBehaviour
     public void StartAttack()
     {
         m_StateMachine.StartAnimationOverride();
+        if (OnAttackSfx)
+        {
+            // AudioUtility.CreateSFX(OnAttackSfx, transform.position, AudioUtility.AudioGroups.EnemyDetection, 1f);
+            m_AudioSource.PlayOneShot(OnAttackSfx);
+        }
     }
 
     public void StopAttack()

@@ -5535,9 +5535,8 @@ MonoBehaviour:
   PathReachingRadius: 2
   OrientationSpeed: 10
   DeathDuration: 0
-  DamageTick: {fileID: 8300000, guid: 0f4173952a57847d4b3d17cf66e46ac2, type: 3}
+  DamageTick: {fileID: 0}
   OnDeathSfx: {fileID: 8300000, guid: 79e29e07d5c7b4bfdabef0d1abe97229, type: 3}
-  OnAttackSfx: {fileID: 8300000, guid: e857ac32ee8e44bb79ef90ce2356e632, type: 3}
   DeathVfx: {fileID: 1037864198121816, guid: 638c8ca438a11c54987de876e500ed02, type: 3}
   DeathVfxSpawnPoint: {fileID: 1529994086237993144}
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -6196,3 +6195,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b312d5aa22c364ee99d4b0ad7b1e5099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnAttackSfx: {fileID: 8300000, guid: e857ac32ee8e44bb79ef90ce2356e632, type: 3}
+  OnDamageSfx: {fileID: 8300000, guid: 0f4173952a57847d4b3d17cf66e46ac2, type: 3}

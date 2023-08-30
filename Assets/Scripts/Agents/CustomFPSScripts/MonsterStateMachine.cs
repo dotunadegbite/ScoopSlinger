@@ -62,8 +62,6 @@ public class MonsterStateMachine : MonoBehaviour
             // adding a audio source to play the movement sound on it
             m_AudioSource = GetComponent<AudioSource>();
             DebugUtility.HandleErrorIfNullGetComponent<AudioSource, MonsterStateMachine>(m_AudioSource, this, gameObject);
-            m_AudioSource.clip = MovementSound;
-            m_AudioSource.Play();
         }
 
         void Update()

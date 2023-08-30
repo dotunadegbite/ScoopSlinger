@@ -32,8 +32,6 @@ public class MonsterController : MonoBehaviour
 
     public AudioClip OnDeathSfx;
 
-    public AudioClip OnAttackSfx;
-
     [Header("VFX")] [Tooltip("The VFX prefab spawned when the enemy dies")]
     public GameObject DeathVfx;
 
@@ -81,6 +79,7 @@ public class MonsterController : MonoBehaviour
 
     private Vector3 m_CurrentDestination;
     bool m_WasDamagedThisFrame;
+    AudioSource m_AudioSource;
 
     void Start()
     {
@@ -105,6 +104,8 @@ public class MonsterController : MonoBehaviour
         DebugUtility.HandleErrorIfNullFindObject<GameFlowManager, MonsterController>(m_GameFlowManager, this);
 
         m_MonsterHitBox = GetComponentInChildren<MonsterHitBox>();
+
+        m_AudioSource = GetComponent<AudioSource>();
 
         // Subscribe to damage & death actions
         m_Health.OnDie += OnDie;
@@ -250,10 +251,6 @@ public class MonsterController : MonoBehaviour
             
             onDamaged?.Invoke();
             m_LastTimeDamaged = Time.time;
-        
-            // play the damage tick sound
-            if (DamageTick && !m_WasDamagedThisFrame)
-                AudioUtility.CreateSFX(DamageTick, transform.position, AudioUtility.AudioGroups.DamageTick, 0f);
             
             m_WasDamagedThisFrame = true;
         }
@@ -267,7 +264,8 @@ public class MonsterController : MonoBehaviour
 
         if (OnDeathSfx)
         {
-            AudioUtility.CreateSFX(OnDeathSfx, transform.position, AudioUtility.AudioGroups.DamageTick, 1f);
+            // AudioUtility.CreateSFX(OnDeathSfx, transform.position, AudioUtility.AudioGroups.DamageTick, 1f);
+            m_AudioSource.PlayOneShot(OnDeathSfx);
         }
         // tells the game flow manager to handle the enemy destuction
         m_MonsterManager.UnregisterEnemy(this);
@@ -293,10 +291,6 @@ public class MonsterController : MonoBehaviour
         if (IsTargetInAttackRange)
         {
             onAttack.Invoke();
-            if (OnAttackSfx)
-            {
-                AudioUtility.CreateSFX(OnAttackSfx, transform.position, AudioUtility.AudioGroups.EnemyDetection, 1f);
-            }
             return true;
         }
 
