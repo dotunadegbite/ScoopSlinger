@@ -30,7 +30,7 @@ using UnityEngine.UI;
 
             
             m_PlayerHealth.OnDamaged += UpdateHearts;
-            m_PlayerHealth.InitHealth += DrawHearts;
+            m_PlayerHealth.InitHealth += OnPlayerHealthInit;
         }
 
         void Update()
@@ -71,6 +71,11 @@ using UnityEngine.UI;
                 var isHeartActive = i + 1 <= m_PlayerHealth.CurrentHealth;
                 m_PlayerHearts[i].SetHeartImage(/* isAlive */ isHeartActive);
             }
+        }
+
+        private void OnPlayerHealthInit()
+        {
+            DrawHearts();
         }
 
         void UpdateHearts(float damage, GameObject damageSource)
