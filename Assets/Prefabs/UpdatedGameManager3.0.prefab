@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8848655446021846981}
   - component: {fileID: 4801184092652690541}
   m_Layer: 5
-  m_Name: UpdatedGameManager2.0
+  m_Name: UpdatedGameManager3.0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
