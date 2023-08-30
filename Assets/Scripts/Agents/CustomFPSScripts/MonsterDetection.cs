@@ -123,17 +123,17 @@ using System.Linq;
             TimeLastSeenTarget = Time.time;
             KnownDetectedTarget = damageSource;
 
-            if (Animator)
+            /* if (Animator)
             {
                 Animator.SetTrigger(k_AnimOnDamagedParameter);
-            }
+            }*/
         }
 
         public virtual void OnAttack()
         {
-            if (Animator)
+            /* if (Animator)
             {
                 Animator.SetTrigger(k_AnimAttackParameter);
-            }
+            }*/
         }
     }
