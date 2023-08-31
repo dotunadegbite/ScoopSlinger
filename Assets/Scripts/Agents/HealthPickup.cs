@@ -29,7 +29,8 @@ public class HealthPickup : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("showtime");
-            playerHealth += 1;
+            m_PlayerHealth.Heal(1.0f, null); //hard coded 1 health per pickup
+            //playerHealth += 1;
             Destroy(gameObject); // remove the cherry on pickup
             Debug.Log(playerHealth + " Health pickup check 2");
         }

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class BucketPickup : MonoBehaviour
 {
-    IceCreamInventoryManager m_ScoopAmmoManager;
-    private int currentAmmo;
+    //IceCreamInventoryManager m_ScoopAmmoManager;
+   // private int currentAmmo;
     public FlavorType bucketFlavor;
     public int ammoIncrement;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = FindObjectOfType<IceCreamInventoryManager>().CurrentAmmo; // grabs the current ammo.
+        //currentAmmo = FindObjectOfType<IceCreamInventoryManager>().CurrentAmmo; // grabs the current ammo.
         bucketFlavor = GetComponent<MyFlavorType>().scoopFlavor; // grabs the specific bucket's type
     }
 

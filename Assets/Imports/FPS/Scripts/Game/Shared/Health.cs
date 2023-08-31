@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public float CriticalHealthRatio = 0.3f;
 
     public UnityAction<float, GameObject> OnDamaged;
-    public UnityAction<float> OnHealed;
+    public UnityAction<float, GameObject> OnHealed; //added game object portion
     public UnityAction InitHealth;
     public UnityAction OnDie;
 
@@ -31,7 +31,7 @@ public class Health : MonoBehaviour
     {
     }
 
-    public void Heal(float healAmount)
+    public void Heal(float healAmount, GameObject healSource) //ADDED healSource Object
     {
         float healthBefore = CurrentHealth;
         CurrentHealth += healAmount;
@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
         float trueHealAmount = CurrentHealth - healthBefore;
         if (trueHealAmount > 0f)
         {
-            OnHealed?.Invoke(trueHealAmount);
+            OnHealed?.Invoke(trueHealAmount, healSource); // ADDED healSource
         }
     }
 
