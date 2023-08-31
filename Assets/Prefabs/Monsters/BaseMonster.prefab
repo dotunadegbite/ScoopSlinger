@@ -469,7 +469,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7515184299207877489}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -576,8 +576,8 @@ MonoBehaviour:
   RandomHitSparks: []
   OnDetectVfx:
   - {fileID: 8587078803032736910}
-  OnDetectSfx: {fileID: 8300000, guid: 25722734eeccba042a18e26e376ca542, type: 3}
-  MovementSound: {fileID: 8300000, guid: 44c5f76f80602024e82d3e5f3af4ee97, type: 3}
+  OnDetectSfx: {fileID: 8300000, guid: 5ad37191991b945bc9fb0582ff8a7ae0, type: 3}
+  MovementSound: {fileID: 8300000, guid: e35896483ac7d4d00935e246e055fb5b, type: 3}
   PitchDistortionMovementSpeed:
     Min: 0
     Max: 0
@@ -597,11 +597,14 @@ MonoBehaviour:
   PathReachingRadius: 2
   OrientationSpeed: 10
   DeathDuration: 0
-  DamageTick: {fileID: 8300000, guid: a7fae22399a6e1d448dc0dd2210f1dac, type: 3}
+  DamageTick: {fileID: 0}
+  OnDeathSfx: {fileID: 8300000, guid: 30c27ed89a2864c61937ba0060c1de44, type: 3}
   DeathVfx: {fileID: 1037864198121816, guid: 638c8ca438a11c54987de876e500ed02, type: 3}
   DeathVfxSpawnPoint: {fileID: 7515184300175882713}
   PathReachingRangeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   _chaseTriggerModule: {fileID: 5317992653387857698}
+  _humanPrefab: {fileID: 6203956555621019633, guid: 01ffe8a9ecf534f52b505b2cc649e196,
+    type: 3}
 --- !u!114 &6880891933937011688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1236,6 +1239,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 207613491288506999}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1018093406638423846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7667dcefa02b14a3c938c133c65ce009,
+    type: 3}
+  m_PrefabInstance: {fileID: 207613491288506999}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6234353957854218699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018093406638423846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b312d5aa22c364ee99d4b0ad7b1e5099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAttackSfx: {fileID: 8300000, guid: e857ac32ee8e44bb79ef90ce2356e632, type: 3}
+  OnDamageSfx: {fileID: 8300000, guid: 0f4173952a57847d4b3d17cf66e46ac2, type: 3}
 --- !u!1001 &995221130939117540
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -25,8 +25,8 @@ public class ObjectiveKillEnemies : Objective
 
         // set a title and description specific for this type of objective, if it hasn't one
         if (string.IsNullOrEmpty(Title))
-            Title = "Eliminate " + (MustKillAllEnemies ? "all the" : KillsToCompleteObjective.ToString()) +
-                    " enemies";
+            Title = "Feed " + (MustKillAllEnemies ? "all the" : KillsToCompleteObjective.ToString()) +
+                    " people in the park.";
 
         if (string.IsNullOrEmpty(Description))
             Description = GetUpdatedCounterAmount();
@@ -53,7 +53,7 @@ public class ObjectiveKillEnemies : Objective
         else if (targetRemaining == 1)
         {
             string notificationText = NotificationEnemiesRemainingThreshold >= targetRemaining
-                ? "One enemy left"
+                ? "One person left to feed"
                 : string.Empty;
             UpdateObjective(string.Empty, GetUpdatedCounterAmount(), notificationText);
         }
@@ -61,7 +61,7 @@ public class ObjectiveKillEnemies : Objective
         {
             // create a notification text if needed, if it stays empty, the notification will not be created
             string notificationText = NotificationEnemiesRemainingThreshold >= targetRemaining
-                ? targetRemaining + " enemies to kill left"
+                ? targetRemaining + " people left to feed"
                 : string.Empty;
 
             UpdateObjective(string.Empty, GetUpdatedCounterAmount(), notificationText);
