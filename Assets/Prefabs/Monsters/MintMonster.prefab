@@ -6195,5 +6195,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b312d5aa22c364ee99d4b0ad7b1e5099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnAttackSfx: {fileID: 8300000, guid: e857ac32ee8e44bb79ef90ce2356e632, type: 3}
-  OnDamageSfx: {fileID: 8300000, guid: 0f4173952a57847d4b3d17cf66e46ac2, type: 3}
+  OnAttackSfx: {fileID: 8300000, guid: 16f3e0860c896496a8e337e889d73cd6, type: 3}
+  OnDamageSfx: {fileID: 8300000, guid: 9361333e98aae4577ac3aef4edf7a951, type: 3}
