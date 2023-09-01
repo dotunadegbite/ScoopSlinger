@@ -19,7 +19,6 @@ public class CutsceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_LoadLevelOperation = null;
     }
 
     // Update is called once per frame
@@ -65,21 +64,23 @@ public class CutsceneManager : MonoBehaviour
     {
         yield return null;
 
+        m_LoadLevelOperation = null;
         //Begin to load the Scene you specify
-        m_LoadLevelOperation = SceneManager.LoadSceneAsync("MainLevel-LevelLayout");
+        m_LoadLevelOperation = SceneManager.LoadSceneAsync("LevelRefactor");
         //Don't let the Scene activate until you allow it to
         m_LoadLevelOperation.allowSceneActivation = false;
 
         CutscenePanel.SetActive(true);
-        SkipSceneButton.interactable = false;
-        
+
         //When the load is still in progress, output the Text and progress bar
         while (!m_LoadLevelOperation.isDone)
         {
             // Check if the load has finished
             if (m_LoadLevelOperation.progress >= 0.9f)
             {
-                StartCoroutine(EnableSkipCutsceneButton());
+                // StartCoroutine(EnableSkipCutsceneButton());
+                yield return new WaitForSeconds(2);
+                SkipSceneButton.interactable = true;
             }
 
             yield return null;
@@ -91,6 +92,7 @@ public class CutsceneManager : MonoBehaviour
 
     private IEnumerator EnableSkipCutsceneButton()
     {
+        Debug.Log("coroutine started");
         yield return new WaitForSeconds(2);
         SkipSceneButton.interactable = true;
     }

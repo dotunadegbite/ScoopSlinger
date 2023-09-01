@@ -28,6 +28,7 @@ public class LoadSceneManager : MonoBehaviour
     //Added for a quick way to transition scenes on win
     public void MoveToScene(string SceneName)
     {
+        Time.timeScale = 1f; // need to set timescale back to one in the case users quit game from the pause screen
         SceneManager.LoadScene(SceneName);
     }
 
