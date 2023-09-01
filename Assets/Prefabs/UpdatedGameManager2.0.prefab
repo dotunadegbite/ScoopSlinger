@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdcb0f3d139a45a0873b8cfffb41e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Title: Feed everyone as qucik as possible!
+  Title: Feed everyone as quick as possible!
   Description: Everyone is screaming for ice cream so hard they are monsters!
   IsOptional: 0
   DelayVisible: 0
