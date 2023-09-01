@@ -12,8 +12,6 @@ public class BucketPickup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = FindObjectOfType<IceCreamInventoryManager>().CurrentAmmo; // grabs the current ammo.
-        bucketFlavor = GetComponent<MyFlavorType>().scoopFlavor; // grabs the specific bucket's type
     }
 
     private void Update()
@@ -23,10 +21,8 @@ public class BucketPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("entered");
         if(other.tag == "Player")
         {
-            Debug.Log("showtime");
             IceCreamInventoryManager playerIceCreamInvenManager = other.GetComponent<IceCreamInventoryManager>();
             playerIceCreamInvenManager.AddAmmoByType(ammoIncrement, bucketFlavor);
             Destroy(gameObject); // remove the bucket on pickup
