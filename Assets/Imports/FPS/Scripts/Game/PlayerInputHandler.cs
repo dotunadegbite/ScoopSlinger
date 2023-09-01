@@ -1,7 +1,6 @@
 ﻿using Unity.FPS.Game;
 using UnityEngine;
 
-
 public class PlayerInputHandler : MonoBehaviour
 {
     [Tooltip("Sensitivity multiplier for moving the camera around")]

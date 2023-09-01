@@ -43,6 +43,16 @@ public class IceCreamInventoryManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Initalize();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+    
+    public void Initalize()
+    {
         m_ScoopType = FlavorType.CHOCOLATE;
         m_ScoopAmmoCounts = new Dictionary<FlavorType, int>();
 
@@ -55,9 +65,9 @@ public class IceCreamInventoryManager : MonoBehaviour
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs);
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetAmmoCountByFlavor(FlavorType flavor)
     {
+        return m_ScoopAmmoCounts[flavor];
     }
 
     public ProjectileBase GetCurrentScoopType()
@@ -68,6 +78,7 @@ public class IceCreamInventoryManager : MonoBehaviour
     public void UpdateAmmo()
     {
         m_ScoopAmmoCounts[m_ScoopType] = Mathf.Max(0, m_ScoopAmmoCounts[m_ScoopType] - 1);
+        Debug.Log("New scoop amount: " + m_ScoopAmmoCounts[m_ScoopType]);
 
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs (m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount);
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs);

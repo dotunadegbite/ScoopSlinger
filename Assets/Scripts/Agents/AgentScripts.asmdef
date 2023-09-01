@@ -1,0 +1,17 @@
+{
+    "name": "AgentScripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9c5543eabb73a6249ac07b2c065ee8b4",
+        "GUID:4ebd8f9dc36d4494da092f2b912e3a74"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
