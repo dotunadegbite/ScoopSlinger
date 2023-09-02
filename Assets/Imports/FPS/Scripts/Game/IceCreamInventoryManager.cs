@@ -19,7 +19,7 @@ public class ScoopAmmoChangedEventArgs : EventArgs
 public class IceCreamInventoryManager : MonoBehaviour
 {
     [SerializeField] private ProjectileBase[] m_ScoopProjectiles;
-    [SerializeField] private FlavorType[] AllScoopTypes;
+    [SerializeField] private FlavorType[] m_AllScoopTypes;
     [SerializeField] private int MaxScoopAmount = 10;
 
     FlavorType m_ScoopType;
@@ -34,6 +34,8 @@ public class IceCreamInventoryManager : MonoBehaviour
     {
         get => m_ScoopAmmoCounts[m_ScoopType];
     }
+
+    public FlavorType[] AllScoopTypes { get => m_AllScoopTypes;} 
 
     void Awake()
     {
@@ -56,7 +58,7 @@ public class IceCreamInventoryManager : MonoBehaviour
         m_ScoopType = FlavorType.CHOCOLATE;
         m_ScoopAmmoCounts = new Dictionary<FlavorType, int>();
 
-        foreach (var flavor in AllScoopTypes)
+        foreach (var flavor in m_AllScoopTypes)
         {
             m_ScoopAmmoCounts[flavor] = MaxScoopAmount;
         }
@@ -78,7 +80,6 @@ public class IceCreamInventoryManager : MonoBehaviour
     public void UpdateAmmo()
     {
         m_ScoopAmmoCounts[m_ScoopType] = Mathf.Max(0, m_ScoopAmmoCounts[m_ScoopType] - 1);
-        Debug.Log("New scoop amount: " + m_ScoopAmmoCounts[m_ScoopType]);
 
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs (m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount);
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs);
@@ -96,7 +97,7 @@ public class IceCreamInventoryManager : MonoBehaviour
     public void SwitchScoop (bool switchUp)
     {
         var currentIndex = (int)m_ScoopType;
-        int nextIndex = switchUp ? Mathf.Max(0, currentIndex - 1) :  Mathf.Min(AllScoopTypes.Length - 1, currentIndex + 1);
+        int nextIndex = switchUp ? Mathf.Max(0, currentIndex - 1) :  Mathf.Min(m_AllScoopTypes.Length - 1, currentIndex + 1);
 
         m_ScoopType = (FlavorType)nextIndex;
 

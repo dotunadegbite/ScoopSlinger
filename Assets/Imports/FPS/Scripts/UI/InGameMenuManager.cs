@@ -17,18 +17,8 @@ namespace Unity.FPS.UI
         [Tooltip("Slider component for look sensitivity")]
         public Slider LookSensitivitySlider;
 
-        [Tooltip("Toggle component for shadows")]
-        public Toggle ShadowsToggle;
-
-        [Tooltip("Toggle component for invincibility")]
-        public Toggle InvincibilityToggle;
-
-        [Tooltip("Toggle component for framerate display")]
-        public Toggle FramerateToggle;
-
-        [Tooltip("GameObject for the controls")]
-        // public GameObject ControlImage;
-
+        public GameObject AmmoMenuRoot;
+        public bool IsAmmoMenuOpen { get; private set;}
         PlayerInputHandler m_PlayerInputsHandler;
         Health m_PlayerHealth;
         FramerateCounter m_FramerateCounter;
@@ -43,6 +33,7 @@ namespace Unity.FPS.UI
             DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
             MenuRoot.SetActive(false);
+            AmmoMenuRoot.SetActive(false);
 
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
             LookSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
@@ -51,7 +42,7 @@ namespace Unity.FPS.UI
         void Update()
         {
             // Lock cursor when clicking outside of menu
-            if (!MenuRoot.activeSelf && Input.GetMouseButtonDown(0))
+            if ((!MenuRoot.activeSelf && !AmmoMenuRoot.activeSelf) && Input.GetMouseButtonDown(0))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -63,10 +54,27 @@ namespace Unity.FPS.UI
                 Cursor.visible = true;
             }
 
-            if (Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu)
+            if ((Input.GetButtonDown(GameConstants.k_ButtonNamePauseMenu) && !AmmoMenuRoot.activeSelf)
                 || (MenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
             {
                 SetPauseMenuActivation(!MenuRoot.activeSelf);
+            } 
+
+            if (m_PlayerInputsHandler.GetAmmoMenuInputDown()
+                || (AmmoMenuRoot.activeSelf && Input.GetButtonDown(GameConstants.k_ButtonNameCancel)))
+            {
+                if (!MenuRoot.activeSelf)
+                {
+                    SetAmmoMenuActivation(true);
+                }
+            }
+
+            if (m_PlayerInputsHandler.GetAmmoMenuInputReleased())
+            {
+                if (!MenuRoot.activeSelf)
+                {
+                    SetAmmoMenuActivation(false);
+                }
             }
 
             if (Input.GetAxisRaw(GameConstants.k_AxisNameVertical) != 0)
@@ -115,6 +123,48 @@ namespace Unity.FPS.UI
 
         }
 
+        void SetAmmoMenuActivation(bool active)
+        {
+            AmmoMenuRoot.SetActive(active);
+
+            if (AmmoMenuRoot.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0.15f;
+                var radialMenu = GetComponent<RadialMenu>();
+                if (radialMenu)
+                {
+                    radialMenu.Open();
+                    radialMenu.SetCloseMenuAction(SetAmmoMenuActivation);
+                }
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1.0f;
+                var radialMenu = GetComponent<RadialMenu>();
+                if (radialMenu)
+                {
+                    radialMenu.Close();
+                }
+            }
+
+            /* if (AmmoMenuRoot.activeSelf)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                // AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                // AudioUtility.SetMasterVolume(1);
+            }*/
+
+        }
         void OnMouseSensitivityChanged(float newValue)
         {
             m_PlayerInputsHandler.LookSensitivity = newValue;

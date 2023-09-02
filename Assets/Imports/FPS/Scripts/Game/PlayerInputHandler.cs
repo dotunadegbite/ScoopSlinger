@@ -22,6 +22,8 @@ public class PlayerInputHandler : MonoBehaviour
     PlayerCharacterController m_PlayerCharacterController;
     bool m_FireInputWasHeld;
 
+    bool m_AmmoMenuInputHeld = false;
+
     void Start()
     {
         m_PlayerCharacterController = GetComponent<PlayerCharacterController>();
@@ -41,7 +43,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool CanProcessInput()
     {
-        return Cursor.lockState == CursorLockMode.Locked && !m_GameFlowManager.GameIsEnding;
+        return Cursor.lockState == CursorLockMode.Locked && !m_GameFlowManager.GameIsEnding && !m_AmmoMenuInputHeld;
     }
 
     public Vector3 GetMoveInput()
@@ -133,6 +135,31 @@ public class PlayerInputHandler : MonoBehaviour
 
         return false;
     }
+
+    public bool GetAmmoMenuInputDown()
+    {
+        if (CanProcessInput())
+        {
+            var isButtonDown = Input.GetButtonDown(GameConstants.k_ButtonNameAmmoMenu);
+            m_AmmoMenuInputHeld = isButtonDown;
+            return isButtonDown;
+        }
+
+        return false;
+    }
+
+    public bool GetAmmoMenuInputReleased()
+    {
+        if (!m_GameFlowManager.GameIsEnding)
+        {
+            if (m_AmmoMenuInputHeld) m_AmmoMenuInputHeld = false;
+            return Input.GetButtonUp(GameConstants.k_ButtonNameAmmoMenu);
+        }
+
+        return false;
+    }
+
+
 
     public bool GetSprintInputHeld()
     {

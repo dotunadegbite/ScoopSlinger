@@ -30,7 +30,8 @@ public class ScoopHUDManager : MonoBehaviour
         var currentAmmo = e.CurrentAmmoCount;
         var maxAmmo = e.MaxAmmoCount;
 
-        CurrentAmmoText.text = string.Format(AmmoFormat, currentAmmo, maxAmmo);
+        // CurrentAmmoText.text = string.Format(AmmoFormat, currentAmmo, maxAmmo);
+        CurrentAmmoText.text = currentAmmo < 10 ? "0" + currentAmmo.ToString() : currentAmmo.ToString();
         CurrentScoopIcon.sprite = ScoopImages[(int)currentFlavor];
     }
     
