@@ -18,10 +18,15 @@ namespace Unity.FPS.UI
         public Slider LookSensitivitySlider;
 
         public GameObject AmmoMenuRoot;
+
+        public GameObject PopupRoot;
         public bool IsAmmoMenuOpen { get; private set;}
+
         PlayerInputHandler m_PlayerInputsHandler;
         Health m_PlayerHealth;
         FramerateCounter m_FramerateCounter;
+
+        PlayerPopupHandler m_PlayerPopupHandler;
 
         void Start()
         {
@@ -32,8 +37,13 @@ namespace Unity.FPS.UI
             m_PlayerHealth = m_PlayerInputsHandler.GetComponent<Health>();
             DebugUtility.HandleErrorIfNullGetComponent<Health, InGameMenuManager>(m_PlayerHealth, this, gameObject);
 
+            m_PlayerPopupHandler = m_PlayerInputsHandler.GetComponent<PlayerPopupHandler>();
+
+            m_PlayerPopupHandler.OnPlayerTriggerPopup += ActivatePopup;
+
             MenuRoot.SetActive(false);
             AmmoMenuRoot.SetActive(false);
+            PopupRoot.SetActive(false);
 
             LookSensitivitySlider.value = m_PlayerInputsHandler.LookSensitivity;
             LookSensitivitySlider.onValueChanged.AddListener(OnMouseSensitivityChanged);
@@ -42,7 +52,7 @@ namespace Unity.FPS.UI
         void Update()
         {
             // Lock cursor when clicking outside of menu
-            if ((!MenuRoot.activeSelf && !AmmoMenuRoot.activeSelf) && Input.GetMouseButtonDown(0))
+            if ((!MenuRoot.activeSelf && !AmmoMenuRoot.activeSelf && !PopupRoot.activeSelf) && Input.GetMouseButtonDown(0))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -100,8 +110,24 @@ namespace Unity.FPS.UI
             SetPauseMenuActivation(false);
         }
 
+        public void ClosePopup()
+        {
+            PopupRoot.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f;
+            AudioUtility.SetMasterVolume(1);
+
+        }
+
         void SetPauseMenuActivation(bool active)
         {
+            if (active && (AmmoMenuRoot.activeSelf || PopupRoot.activeSelf))
+            {
+                return;
+            }
+
             MenuRoot.SetActive(active);
 
             if (MenuRoot.activeSelf)
@@ -125,6 +151,10 @@ namespace Unity.FPS.UI
 
         void SetAmmoMenuActivation(bool active)
         {
+            if ((MenuRoot.activeSelf || PopupRoot.activeSelf))
+            {
+                return;
+            }
             AmmoMenuRoot.SetActive(active);
 
             if (AmmoMenuRoot.activeSelf)
@@ -150,21 +180,30 @@ namespace Unity.FPS.UI
                     radialMenu.Close();
                 }
             }
-
-            /* if (AmmoMenuRoot.activeSelf)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                // AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                // AudioUtility.SetMasterVolume(1);
-            }*/
-
         }
+
+        void ActivatePopup(PopupInfo info)
+        {
+            Debug.Log("Activate popup with title: " + info.Title);
+            if (!PopupRoot.activeSelf)
+            {
+                var popupManager = GetComponent<PopupManager>();
+                if (popupManager)
+                {
+                    popupManager.InstatiatePopup(info);
+                    PopupRoot.SetActive(true);
+
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    Time.timeScale = 0f;
+                    AudioUtility.SetMasterVolume(VolumeWhenMenuOpen);
+                    EventSystem.current.SetSelectedGameObject(null);
+                }
+
+            }
+        }
+
+
         void OnMouseSensitivityChanged(float newValue)
         {
             m_PlayerInputsHandler.LookSensitivity = newValue;

@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 3688374052032035754}
   - component: {fileID: 8269360152235463887}
   - component: {fileID: 7283798654298173037}
+  - component: {fileID: 7559730243282182849}
   m_Layer: 0
   m_Name: UpdatedPlayer
   m_TagString: Player
@@ -557,6 +558,18 @@ MonoBehaviour:
   MaxSpeedForFallDamage: 40
   FallDamageAtMinSpeed: 10
   FallDamageAtMaxSpeed: 30
+--- !u!114 &7559730243282182849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8158773550354342225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f0105d9c53744c3b4f174435419e3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8275514745518284502
 GameObject:
   m_ObjectHideFlags: 0
