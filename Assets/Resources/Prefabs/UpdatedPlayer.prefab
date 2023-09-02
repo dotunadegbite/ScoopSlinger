@@ -497,6 +497,10 @@ MonoBehaviour:
   - {fileID: 1738955286853915412, guid: de5af6157e64f4c6ca2aa9467e58f4b6, type: 3}
   m_AllScoopTypes: 00000000010000000200000003000000
   MaxScoopAmount: 10
+  StartingChocolateAmount: 5
+  StartingVanillaAmount: 0
+  StartingBerryAmount: 0
+  StartingMintAmount: 0
 --- !u!114 &8269360152235463887
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,8 +22,15 @@ public class IceCreamInventoryManager : MonoBehaviour
     [SerializeField] private FlavorType[] m_AllScoopTypes;
     [SerializeField] private int MaxScoopAmount = 10;
 
+    [SerializeField] private int StartingChocolateAmount = 0;
+    [SerializeField] private int StartingVanillaAmount = 0;
+    [SerializeField] private int StartingBerryAmount = 0;
+    [SerializeField] private int StartingMintAmount = 0;
+
     FlavorType m_ScoopType;
     Dictionary<FlavorType, int> m_ScoopAmmoCounts;
+
+     Dictionary<FlavorType, int> m_StartingScoopAmmoCounts;
     PlayerInputHandler m_InputHandler;
 
     public FlavorType CurrentPlayerType => m_ScoopType;
@@ -40,6 +47,14 @@ public class IceCreamInventoryManager : MonoBehaviour
     void Awake()
     {
         m_InputHandler = GetComponent<PlayerInputHandler>();
+
+        m_StartingScoopAmmoCounts = new Dictionary<FlavorType, int>
+        {
+            { FlavorType.CHOCOLATE, StartingChocolateAmount },
+            { FlavorType.VANILLA, StartingVanillaAmount },
+            { FlavorType.BERRY, StartingBerryAmount },
+            { FlavorType.MINT, StartingMintAmount },
+        };
     }
 
     // Start is called before the first frame update
@@ -60,7 +75,7 @@ public class IceCreamInventoryManager : MonoBehaviour
 
         foreach (var flavor in m_AllScoopTypes)
         {
-            m_ScoopAmmoCounts[flavor] = MaxScoopAmount;
+            m_ScoopAmmoCounts[flavor] = m_StartingScoopAmmoCounts[flavor];
         }
 
         var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs (m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount);
@@ -87,10 +102,11 @@ public class IceCreamInventoryManager : MonoBehaviour
 
     public void AddAmmoByType(int scoopDelta, FlavorType iceCreamType)
     {
-        var updatedAmmoAmmount = Mathf.Min(MaxScoopAmount, m_ScoopAmmoCounts[iceCreamType] + scoopDelta);
-        m_ScoopAmmoCounts[iceCreamType] = updatedAmmoAmmount;
+        m_ScoopType = iceCreamType;
+        var updatedAmmoAmmount = Mathf.Min(MaxScoopAmount, m_ScoopAmmoCounts[m_ScoopType] + scoopDelta);
+        m_ScoopAmmoCounts[m_ScoopType] = updatedAmmoAmmount;
 
-        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(iceCreamType, m_ScoopAmmoCounts[iceCreamType], MaxScoopAmount); // set the event arguments (refer to top)
+        var ammoChangedEventArgs = new ScoopAmmoChangedEventArgs(m_ScoopType, m_ScoopAmmoCounts[m_ScoopType], MaxScoopAmount); // set the event arguments (refer to top)
         this.OnRaiseScoopAmmoChangedEvent(ammoChangedEventArgs); // fire the event
     }
 

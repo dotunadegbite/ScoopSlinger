@@ -10,6 +10,17 @@ public class MonsterPath : MonoBehaviour
     [Tooltip("The Nodes making up the path")]
     public List<Transform> PathNodes = new List<Transform>();
 
+    void Awake()
+    {
+        foreach (var path in PathNodes)
+        {
+            var mesh = path.gameObject.GetComponentInChildren<MeshRenderer>();
+            if (mesh)
+            {
+                mesh.enabled = false;
+            }
+        }
+    }
     void Start()
     {
         foreach (var enemy in EnemiesToAssign)
