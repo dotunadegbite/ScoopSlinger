@@ -183,6 +183,7 @@ public class MonsterStateMachine : MonoBehaviour
 
         void OnDetectedTarget()
         {
+            Debug.Log("Monster detected player");
             if (AiState == AIState.Patrol)
             {
                 AiState = AIState.Follow;
