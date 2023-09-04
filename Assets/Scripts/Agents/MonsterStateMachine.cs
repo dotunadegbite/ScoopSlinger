@@ -191,7 +191,10 @@ public class MonsterStateMachine : MonoBehaviour
 
             for (int i = 0; i < OnDetectVfx.Length; i++)
             {
-                OnDetectVfx[i].Play();
+                if (OnDetectVfx[i])
+                {
+                    OnDetectVfx[i].Play();
+                }
             }
 
             if (OnDetectSfx)
