@@ -11,7 +11,6 @@ public class HealthPickup : MonoBehaviour
     void Start()
     {
         PlayerCharacterController playerCharacterController = GameObject.FindObjectOfType<PlayerCharacterController>();
-        //DebugUtility.HandleErrorIfNullFindObject<PlayerCharacterController, PlayerHeartBar>(playerCharacterController, this);
         m_PlayerHealth = playerCharacterController.GetComponent<Health>();
         playerHealth = m_PlayerHealth.CurrentHealth;
     }
@@ -19,7 +18,7 @@ public class HealthPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(0f, -50 * Time.deltaTime, 50 * Time.deltaTime, Space.Self); //rotation for health pickup
     }
 
     private void OnTriggerEnter(Collider other)
