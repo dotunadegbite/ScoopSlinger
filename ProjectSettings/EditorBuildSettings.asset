@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Final/LevelRefactor/LevelRefactor.unity
     guid: 1d078440c07780c43a12b5490c06c06c
+  - enabled: 1
+    path: Assets/Scenes/Final/LevelRefactor/ChallengeLevelRefactor.unity
+    guid: 9d13501342142498aa06d9dc621f11a6
   m_configObjects: {}
