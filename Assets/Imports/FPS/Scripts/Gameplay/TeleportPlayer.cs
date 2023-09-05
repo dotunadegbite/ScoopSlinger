@@ -25,7 +25,7 @@ namespace Unity.FPS.Gameplay
                 Health playerHealth = m_PlayerCharacterController.GetComponent<Health>();
                 if (playerHealth)
                 {
-                    playerHealth.Heal(999);
+                    playerHealth.Heal(999, null);
                 }
             }
         }
