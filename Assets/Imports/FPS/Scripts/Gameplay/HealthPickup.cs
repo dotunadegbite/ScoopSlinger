@@ -1,22 +1,37 @@
-﻿using Unity.FPS.Game;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.FPS.Gameplay
+public class HealthPickup : MonoBehaviour
 {
-    public class HealthPickup : Pickup
-    {
-        [Header("Parameters")] [Tooltip("Amount of health to heal on pickup")]
-        public float HealAmount;
+    // Start is called before the first frame update
+    Health m_PlayerHealth;
+    private float playerHealth;
 
-        protected override void OnPicked(PlayerCharacterController player)
+    void Start()
+    {
+        PlayerCharacterController playerCharacterController = GameObject.FindObjectOfType<PlayerCharacterController>();
+        m_PlayerHealth = playerCharacterController.GetComponent<Health>();
+        playerHealth = m_PlayerHealth.CurrentHealth;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Rotate(0f, -50 * Time.deltaTime, 50 * Time.deltaTime, Space.Self); //rotation for health pickup
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(playerHealth + " Health pickup check 1");
+        Debug.Log("entered ontrigger");
+        if (other.tag == "Player")
         {
-            Health playerHealth = player.GetComponent<Health>();
-            if (playerHealth && playerHealth.CanPickup())
-            {
-                playerHealth.Heal(HealAmount);
-                PlayPickupFeedback();
-                Destroy(gameObject);
-            }
+            Debug.Log("showtime");
+            m_PlayerHealth.Heal(1.0f, null); //hard coded 1 health per pickup
+            //playerHealth += 1;
+            Destroy(gameObject); // remove the cherry on pickup
+            Debug.Log(playerHealth + " Health pickup check 2");
         }
     }
 }

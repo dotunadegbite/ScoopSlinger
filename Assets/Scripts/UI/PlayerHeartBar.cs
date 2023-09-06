@@ -31,9 +31,10 @@ using UnityEngine.UI;
             
             m_PlayerHealth.OnDamaged += UpdateHearts;
             m_PlayerHealth.InitHealth += OnPlayerHealthInit;
+            m_PlayerHealth.OnHealed += UpdateHearts; //for health pickups
         }
 
-        void Update()
+    void Update()
         {
         }
 
