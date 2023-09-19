@@ -24,8 +24,14 @@ public class MonsterType : MonoBehaviour
     [SerializeField] private FlavorType m_ScoopNeeded;
 
     [SerializeField] private float PawnSpeed = 10.0f;
+    [SerializeField] private float NewawnSpeed = 4.0f;
+
     [SerializeField] private float AverageSpeed = 8.0f;
+    [SerializeField] private float NewAverageSpeed = 3.5f;
+
     [SerializeField] private float TankSpeed = 5.0f;
+    [SerializeField] private float NewTankSpeed = 3.0f;
+
 
     [SerializeField] private float PawnHealth = 1.0f;
     [SerializeField] private float AverageHealth = 2.0f;
@@ -37,6 +43,8 @@ public class MonsterType : MonoBehaviour
 
     [Tooltip("Max Health, Speed and Damage for this monster")]
     public MonsterStats Stats;
+
+    public bool IsUsingSurivorHorrorFeel = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +61,13 @@ public class MonsterType : MonoBehaviour
     private void SetMonsterStats()
     {
         MonsterStats stats = new MonsterStats(0f, 0f, 0);
+        if (IsUsingSurivorHorrorFeel)
+        {
+            PawnSpeed  = NewawnSpeed;
+            TankSpeed = NewTankSpeed;
+            AverageSpeed = NewAverageSpeed;
+        }
+        
         switch (m_AgentType)
         {
             case EnemyType.PAWN:

@@ -18,11 +18,16 @@ public class PlayerInputHandler : MonoBehaviour
     [Tooltip("Used to flip the horizontal input axis")]
     public bool InvertXAxis = false;
 
+    public bool IsSurviorFeelEnabled = false;
+
     GameFlowManager m_GameFlowManager;
     PlayerCharacterController m_PlayerCharacterController;
     bool m_FireInputWasHeld;
 
     bool m_AmmoMenuInputHeld = false;
+
+    private bool canJump = false;
+    private bool ammoWheelEnabled = false;
 
     void Start()
     {
@@ -35,6 +40,14 @@ public class PlayerInputHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+
+        UpdateFeelStats(IsSurviorFeelEnabled);
+    }
+
+    private void UpdateFeelStats(bool shouldUseSurivorHorrorStats)
+    {
+        canJump = !shouldUseSurivorHorrorStats;
+        ammoWheelEnabled = shouldUseSurivorHorrorStats;
     }
 
     void LateUpdate()
@@ -49,7 +62,8 @@ public class PlayerInputHandler : MonoBehaviour
 
     public Vector3 GetMoveInput()
     {
-        if (CanProcessInput())
+        var blockMovement = IsSurviorFeelEnabled ? GetAimInputHeld() : false;
+        if (CanProcessInput() && !blockMovement)
         {
             Vector3 move = new Vector3(Input.GetAxisRaw(GameConstants.k_AxisNameHorizontal), 0f,
                 Input.GetAxisRaw(GameConstants.k_AxisNameVertical));

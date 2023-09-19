@@ -36,7 +36,7 @@ public class IceCreamScoopController : MonoBehaviour
     public ProjectileBase ProjectilePrefab;
 
     [Tooltip("Minimum duration between two shots")]
-    public float DelayBetweenShots = 1.5f;
+    public float DelayBetweenShots = 0.5f;
 
     [Tooltip("Number of bullets in a clip")]
     public int ClipSize = 30;
@@ -64,6 +64,8 @@ public class IceCreamScoopController : MonoBehaviour
    public UnityAction OnShoot;
    public event Action OnShootProcessed;
 
+   public bool IsUsingSurivorHorrorFeel;
+
    public GameObject Owner { get; set; }
    public GameObject SourcePrefab { get; set; }
    public float CurrentAmmoRatio { get; private set; }
@@ -78,6 +80,11 @@ public class IceCreamScoopController : MonoBehaviour
    AudioSource m_ShootAudioSource;
 
    const string k_AnimShootParameter = "ShootTrigger";
+   const string k_AnimShootMultiplierParameter = "ShootSpeedMultiplier";
+   [SerializeField] private float oldShootAnimationSpeed = 10.0f;
+   [SerializeField] private float newShootAnimationSpeed = 1.0f;
+
+   private float shootAnimationSpeed;
 
    void Awake()
    {

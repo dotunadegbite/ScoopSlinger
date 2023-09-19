@@ -487,6 +487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopupTrigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 493036537777435395, guid: 9772e51b1303f4311a840aca96825ae8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 493036537777435396, guid: 9772e51b1303f4311a840aca96825ae8,
         type: 3}
       propertyPath: PopupText
@@ -852,6 +857,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PopupTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 493036537777435395, guid: 9772e51b1303f4311a840aca96825ae8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 493036537777435417, guid: 9772e51b1303f4311a840aca96825ae8,
         type: 3}

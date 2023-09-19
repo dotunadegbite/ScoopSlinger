@@ -79,16 +79,18 @@ public class MonsterStateMachine : MonoBehaviour
             }
             else if (AiState == AIState.Patrol)
             {
-                animatorSpeed = 3.0f;
+                animatorSpeed = 1.0f;
                 m_MonsterController.NavMeshAgent.speed = 3.0f;
             }
             else if (!m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
-                animatorSpeed = _agentRunningSpeed;
+                /* animatorSpeed = _agentRunningSpeed; */
+                animatorSpeed = 2.0f;
                 m_MonsterController.NavMeshAgent.speed = _agentRunningSpeed;
             }
             else if (m_MonsterController.ChaseTriggerModule.IsTargetInAttackRange && (AiState == AIState.Follow || AiState == AIState.Attack))
             {
+                // Debug.Log("Should be stopping to attack");
                 animatorSpeed = 0.0f;
                 m_MonsterController.NavMeshAgent.speed = 0.0f;
             }

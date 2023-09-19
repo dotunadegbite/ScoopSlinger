@@ -5592,14 +5592,18 @@ MonoBehaviour:
   m_AgentType: 0
   m_ScoopNeeded: 1
   PawnSpeed: 10
+  NewawnSpeed: 5
   AverageSpeed: 8
+  NewAverageSpeed: 4
   TankSpeed: 5
+  NewTankSpeed: 3
   PawnHealth: 1
   AverageHealth: 2
   TankHealth: 3
   PawnDamage: 1
   AverageDamage: 2
   TankDamage: 3
+  IsUsingSurivorHorrorFeel: 1
 --- !u!1 &6987078182039747697
 GameObject:
   m_ObjectHideFlags: 0

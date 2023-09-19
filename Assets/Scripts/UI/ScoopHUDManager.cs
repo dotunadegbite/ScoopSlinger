@@ -22,6 +22,7 @@ public class ScoopHUDManager : MonoBehaviour
     {
         m_InventoryManager = FindObjectOfType<IceCreamInventoryManager>();
         m_InventoryManager.OnScoopAmmoChangedEvent += UpdateCurrentAmmoUI;
+        UpdateCurrentAmmoUI(m_InventoryManager.CurrentPlayerType, m_InventoryManager.CurrentAmmo);
     }
 
     void UpdateCurrentAmmoUI(object sender, ScoopAmmoChangedEventArgs e)
@@ -33,6 +34,12 @@ public class ScoopHUDManager : MonoBehaviour
         // CurrentAmmoText.text = string.Format(AmmoFormat, currentAmmo, maxAmmo);
         CurrentAmmoText.text = currentAmmo < 10 ? "0" + currentAmmo.ToString() : currentAmmo.ToString();
         CurrentScoopIcon.sprite = ScoopImages[(int)currentFlavor];
+    }
+
+    void UpdateCurrentAmmoUI(FlavorType flavor, int ammoCount)
+    {
+        CurrentAmmoText.text = ammoCount < 10 ? "0" + ammoCount.ToString() : ammoCount.ToString();
+        CurrentScoopIcon.sprite = ScoopImages[(int)flavor];
     }
     
 }

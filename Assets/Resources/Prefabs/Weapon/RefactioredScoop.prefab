@@ -185,6 +185,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1738955286853915412, guid: c15c2015d16639545ad2071199a5c283,
     type: 3}
   DelayBetweenShots: 0.25
+  NewDelayBetweenShots: 3.5
   ClipSize: 30
   MaxAmmo: 10000
   AimOffset: {x: 0, y: 0, z: 0}
@@ -192,6 +193,7 @@ MonoBehaviour:
   WeaponAnimator: {fileID: 7336484141739995338}
   ShootSfx: {fileID: 8300000, guid: 8ed3ab3e2e4f3e34e9dd4578dc797026, type: 3}
   ChangeWeaponSfx: {fileID: 0}
+  IsUsingSurivorHorrorFeel: 1
 --- !u!1001 &244106050235624779
 PrefabInstance:
   m_ObjectHideFlags: 0

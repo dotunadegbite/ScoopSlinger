@@ -21,14 +21,16 @@ public class PlayerCharacterController : MonoBehaviour
     public float GroundCheckDistance = 0.05f;
 
     [Header("Movement")] [Tooltip("Max movement speed when grounded (when not sprinting)")]
-    public float MaxSpeedOnGround = 10f;
+    public float MaxSpeedOnGround = 10f; 
+    public float NewMaxSpeedOnGround = 5f;
 
-    [Tooltip(
-        "Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
+    [Tooltip("Sharpness for the movement when grounded, a low value will make the player accelerate and decelerate slowly, a high value will do the opposite")]
     public float MovementSharpnessOnGround = 15;
+    public float NewMovementSharpnessOnGround = 5;
 
     [Tooltip("Max movement speed when crouching")] [Range(0, 1)]
     public float MaxSpeedCrouchedRatio = 0.5f;
+    public float NewMaxSpeedCrouchedRatio = 0.25f;
 
     [Tooltip("Max movement speed when not grounded")]
     public float MaxSpeedInAir = 10f;
@@ -38,6 +40,7 @@ public class PlayerCharacterController : MonoBehaviour
 
     [Tooltip("Multiplicator for the sprint speed (based on grounded speed)")]
     public float SprintSpeedModifier = 2f;
+    public float NewSprintSpeedModifier = 1.5f;
 
     [Tooltip("Height at which the player dies instantly when falling off the map")]
     public float KillHeight = -50f;
@@ -94,6 +97,8 @@ public class PlayerCharacterController : MonoBehaviour
     [Tooltip("Damage recieved when falling at the maximum speed")]
     public float FallDamageAtMaxSpeed = 50f;
 
+    public bool UseSurvivorHorrorFeel;
+
     public UnityAction<bool> OnStanceChanged;
 
     public Vector3 CharacterVelocity { get; set; }
@@ -106,7 +111,7 @@ public class PlayerCharacterController : MonoBehaviour
     {
         get
         {
-            /* if (m_WeaponsManager.IsAiming)
+            /* if (m_sc.IsAiming)
             {
                 return AimingRotationMultiplier;
             }*/
@@ -161,8 +166,17 @@ public class PlayerCharacterController : MonoBehaviour
         // force the crouch state to false when starting
         SetCrouchingState(false, true);
         UpdateCharacterHeight(true);
+
+        UpdateFeelStats(UseSurvivorHorrorFeel);
     }
 
+    private void UpdateFeelStats(bool shouldUseSurivorHorrorStats)
+    {
+        MaxSpeedOnGround =  shouldUseSurivorHorrorStats ? NewMaxSpeedOnGround : MaxSpeedOnGround; // TO UP
+        MovementSharpnessOnGround = shouldUseSurivorHorrorStats ? NewMovementSharpnessOnGround : MovementSharpnessOnGround;
+        MaxSpeedCrouchedRatio = shouldUseSurivorHorrorStats ? NewMaxSpeedCrouchedRatio : MaxSpeedCrouchedRatio;
+        SprintSpeedModifier = shouldUseSurivorHorrorStats ? NewSprintSpeedModifier : SprintSpeedModifier;
+    }
     void Update()
     {
         // check for Y kill
@@ -308,7 +322,7 @@ public class PlayerCharacterController : MonoBehaviour
                     MovementSharpnessOnGround * Time.deltaTime);
 
                 // jumping
-                if (IsGrounded && m_InputHandler.GetJumpInputDown())
+                if (!UseSurvivorHorrorFeel && IsGrounded && m_InputHandler.GetJumpInputDown())
                 {
                     // force the crouch state to false
                     if (SetCrouchingState(false, false))
@@ -338,7 +352,7 @@ public class PlayerCharacterController : MonoBehaviour
                 if (m_FootstepDistanceCounter >= 1f / chosenFootstepSfxFrequency)
                 {
                     m_FootstepDistanceCounter = 0f;
-                    // AudioSource.PlayOneShot(FootstepSfx);
+                    AudioSource.PlayOneShot(FootstepSfx);
                 }
 
                 // keep track of distance traveled for footsteps sound
